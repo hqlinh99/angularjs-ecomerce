@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body class="text-[#2E3E4E] dark:text-white">
+<div ng-include="'layouts/header/_header.html'"></div>
+<div ng-view></div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js" defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
+<script src="app.js"></script>
+<script src="pages/home/home.controller.js"></script>
+<script src="pages/product-detail/product-detail.controller.js"></script>
+<script src="pages/checkout/checkout.controller.js"></script>
+<script src="layouts/footer/footer.controller.js"></script>
+<script src="layouts/header/header.controller.js"></script>
+<script src="layouts/menu/menu.controller.js"></script>
+<script src="layouts/product-row/product-row.controller.js"></script>
+<script src="layouts/slider/slider.controller.js"></script>
+<script src="layouts/search/search.controller.js"></script>
+<script src="layouts/category/category.controller.js"></script>
+</body>
+</html>
