@@ -70,7 +70,13 @@ myApp.controller('myCtrl', ($scope) => {
             }, 5000);
         }
     };
-    $scope.cart = [{}];
+    $scope.cart = {
+        data: [],
+        add: function (cartItem) {
+            //chua check...
+            this.data.push(cartItem);
+        }
+    };
     $scope.products = [];
     $scope.product = {};
 });
