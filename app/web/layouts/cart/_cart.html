@@ -1,0 +1,115 @@
+<div ng-controller="cartCtrl">
+    <button ng-show="!isCartOpen" ng-click="isCartOpen = !isCartOpen">
+        <div class="rounded hover:bg-gray-700 p-2 h-fit">
+            <svg class="w-7 h-7" fill="white" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M24.9710993,1 C28.975916,1 32.2375712,4.26614992 32.2375712,8.2764856 L32.2375712,8.2764856 L32.2375712,12.1627907 L41.7335283,12.1627907 C42.5592637,12.1627907 43.2611389,12.7416021 43.3849995,13.5684755 L43.3849995,13.5684755 L48.9174267,46.7674418 C48.9587134,46.9328166 49,47.098191 49,47.3049098 C49,48.2558138 48.2568382,49 47.3072427,49 L47.3072427,49 L2.67624318,49 C2.18080158,49 1.72664718,48.7932818 1.39635294,48.4211886 C1.06605918,48.0490955 0.942198542,47.5529714 1.02477198,47.0568477 L1.02477198,47.0568477 L6.55719966,13.5684755 C6.68105982,12.7416021 7.38293502,12.1627907 8.20867038,12.1627907 L8.20867038,12.1627907 L17.7046275,12.1627907 L17.7046275,8.2764856 C17.7046275,4.26614992 20.9662827,1 24.9710993,1 Z M17.7046275,15.5529717 L9.6537075,15.5529717 L4.65800814,45.6511629 L45.2841905,45.6511629 L40.2884917,15.5529717 L32.2375712,15.5529717 L32.2375712,25.0206717 C32.2375712,25.9715762 31.4944093,26.7157624 30.5448133,26.7157624 C29.5952177,26.7157624 28.8520558,25.9715762 28.8520558,25.0206717 L28.8520558,25.0206717 L28.8520558,15.5529717 L21.0901429,15.5529717 L21.0901429,25.0206717 C21.0901429,25.9715762 20.3469809,26.7157624 19.3973854,26.7157624 C18.4477894,26.7157624 17.7046275,25.9715762 17.7046275,25.0206717 L17.7046275,25.0206717 L17.7046275,15.5529717 Z M24.9710993,4.39018096 C22.8241875,4.39018096 21.0901429,6.12661504 21.0901429,8.2764856 L21.0901429,8.2764856 L21.0901429,12.1627907 L28.8520558,12.1627907 L28.8520558,8.2764856 C28.8520558,6.12661504 27.1180117,4.39018096 24.9710993,4.39018096 Z"></path>
+            </svg>
+        </div>
+    </button>
+    <div ng-show="isCartOpen" class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        <div class="fixed inset-0 overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                    <div class="pointer-events-auto w-screen max-w-md">
+                        <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                            <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                                <div class="flex items-start justify-between">
+                                    <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                                    <div class="ml-3 flex h-7 items-center">
+                                        <button ng-click="isCartOpen = false" type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                                            <span class="absolute -inset-0.5"></span>
+                                            <span class="sr-only">Close panel</span>
+                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8">
+                                    <div class="flow-root">
+                                        <ul role="list" class="-my-6 divide-y divide-gray-200">
+                                            <li class="flex py-6">
+                                                <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                    <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+                                                </div>
+
+                                                <div class="ml-4 flex flex-1 flex-col">
+                                                    <div>
+                                                        <div class="flex justify-between text-base font-medium text-gray-900">
+                                                            <h3>
+                                                                <a href="#">Throwback Hip Bag</a>
+                                                            </h3>
+                                                            <p class="ml-4">$90.00</p>
+                                                        </div>
+                                                        <p class="mt-1 text-sm text-gray-500">Salmon</p>
+                                                    </div>
+                                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                                        <p class="text-gray-500">Qty 1</p>
+
+                                                        <div class="flex">
+                                                            <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="flex py-6">
+                                                <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                    <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="h-full w-full object-cover object-center">
+                                                </div>
+
+                                                <div class="ml-4 flex flex-1 flex-col">
+                                                    <div>
+                                                        <div class="flex justify-between text-base font-medium text-gray-900">
+                                                            <h3>
+                                                                <a href="#">Medium Stuff Satchel</a>
+                                                            </h3>
+                                                            <p class="ml-4">$32.00</p>
+                                                        </div>
+                                                        <p class="mt-1 text-sm text-gray-500">Blue</p>
+                                                    </div>
+                                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                                        <p class="text-gray-500">Qty 1</p>
+
+                                                        <div class="flex">
+                                                            <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- More products... -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                                <div class="flex justify-between text-base font-medium text-gray-900">
+                                    <p>Subtotal</p>
+                                    <p>$262.00</p>
+                                </div>
+                                <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                                <div class="mt-6">
+                                    <a href="/#!/checkout" ng-click="isCartOpen = false" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                                </div>
+                                <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                    <p>
+                                        or
+                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                            Continue Shopping
+                                            <span aria-hidden="true"> &rarr;</span>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
