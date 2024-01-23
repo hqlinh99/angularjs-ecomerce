@@ -1,9 +1,8 @@
-<header ng-controller="headerCtrl">
+<header ng-controller="headerCtrl" class="fixed top-0 z-10 w-full">
     <nav class="bg-black border-white-200 dark:bg-white-900">
         <div class="grid grid-cols-[2fr_6fr_4fr] items-center mx-auto max-w-screen-2xl p-2 gap-10">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="https://www.edigitalagency.com.au/wp-content/uploads/Nike-logo-png-white.png" class="h-8" alt="Hqlinh Logo"/>
-                <span class="self-center text-white text-2xl font-semibold whitespace-nowrap dark:text-black">Naiki</span>
+                <img src="assets/images/Amazon_logo.png" class="h-8" alt="Hqlinh Logo"/>
             </a>
             <div ng-include="'layouts/search/_search.html'"></div>
             <div class="flex justify-end items-center">
@@ -19,7 +18,7 @@
             </div>
         </div>
     </nav>
-    <nav class="bg-white dark:bg-white-700">
+    <nav class="bg-white dark:bg-white-700 border-b">
         <div class="max-w-screen-2xl mx-auto">
             <div class="flex items-center gap-4">
                 <div ng-include="'layouts/category/_category.html'"></div>
