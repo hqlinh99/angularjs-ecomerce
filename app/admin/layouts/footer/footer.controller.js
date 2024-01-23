@@ -1,3 +1,5 @@
-myApp.controller("footerCtrl", ["$scope", ($scope) => {
-
-}])
+adminApp.controller('footerCtrl', ($scope) => {
+    $scope.user = null;
+    $scope.products = [];
+    $scope.product = {};
+});

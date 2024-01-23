@@ -24,3 +24,16 @@ adminApp.controller('adminCtrl', ($scope) => {
     $scope.products = [];
     $scope.product = {};
 });
+
+//create factory
+adminApp.factory("productFactory", ["$http", ($http) => {
+    const host = "https://api.escuelajs.co/api/v1";
+    return {
+        getProducts: () => {
+            return $http.get(`${host}/products`);
+        },
+        getProduct: (id) => {
+            return $http.get(`${host}/products/` + id);
+        }
+    }
+}]);
