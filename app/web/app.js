@@ -44,6 +44,7 @@ myApp.controller('myCtrl', ($scope) => {
             this.data.push(notCopy);
 
             this.setPosition(notCopy);
+            console.log(this.data);
         },
         setScale: function () {
             let s = 1;
@@ -58,15 +59,15 @@ myApp.controller('myCtrl', ($scope) => {
                 $scope.$apply();
             }, 1)
 
-            setTimeout(() => {
-                not.position = '-translate-x-[350px]';
-                $scope.$apply();
-            }, 4000)
+            // setTimeout(() => {
+            //     not.position = '-translate-x-[350px]';
+            //     $scope.$apply();
+            // }, 4000)
 
-            setTimeout(() => {
-                this.data.shift();
-                $scope.$apply();
-            }, 5000);
+            // setTimeout(() => {
+            //     this.data.shift();
+            //     $scope.$apply();
+            // }, 5000);
         }
     };
     $scope.cart = [{}];
