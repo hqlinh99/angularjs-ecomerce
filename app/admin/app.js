@@ -7,7 +7,7 @@ adminApp.config(["$routeProvider", "$locationProvider",function ($routeProvider,
             controller: "productsCtrl"
         })
         .when("/product-detail", {
-            templateUrl: "pages/product-detail/product-detail.html",
+            templateUrl: "pages/product-detail/image-preview.html",
             controller: "productDetailCtrl"
         })
         .otherwise({

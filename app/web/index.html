@@ -8,11 +8,13 @@
     <title>Document</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body class="text-[#2E3E4E] dark:text-white">
 <div ng-include="'layouts/header/_header.html'"></div>
-<div ng-view></div>
+<div class="mt-[105px]">
+    <div ng-view></div>
+</div>
 <div ng-include="'layouts/footer/_footer.html'"></div>
 <div ng-include="'layouts/notify/_notify.html'"></div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
