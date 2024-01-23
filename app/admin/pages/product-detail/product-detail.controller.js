@@ -1,5 +1,5 @@
 myApp.controller("productDetailCtrl", ["$scope", "$timeout", function ($scope, $timeout) {
     $timeout(() => {
-        // <script src='layout/menu/footer.controller.js'></script>
+        // <script src='layout/menu/cart.controller.js'></script>
     })
 }]);

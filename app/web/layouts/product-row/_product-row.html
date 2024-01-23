@@ -1,24 +1,28 @@
-<div ng-controller="productRowCtrl">
+<div class="max-w-screen-xl m-auto" ng-controller="productRowCtrl">
     <div class="mb-6 uppercase text-2xl text-center font-normal">SALE HẾT ĐÓN TẾT</div>
     <img class="rounded-t-lg" alt=""
          src="https://upload.lixibox.com/system/theme_sections/banners/000/000/688/original/Halio%281%29.png"
          style="display: block; width: 100%; height: auto;">
     <div class="grid grid-cols-5 p-10 gap-4 bg-[#920E0C] h-fit rounded-b-lg">
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div ng-repeat="(index, p) in $parent.products"
+             class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div class="p-2">
-                <a href="/product-detail">
-                    <img class="rounded-lg aspect-[4/3] mb-3"
-                         src="https://cdn.shopify.com/s/files/1/0070/7032/files/universal_20product_20code.png?format=jpg&quality=90&v=1697911576&width=1024"
+                <a href="/#!/product-detail/{{p.id}}">
+                    <img class="rounded-lg aspect-square mb-3"
+                         ng-src="{{p.images[0]}}"
                          alt=""/>
                 </a>
-                <a href="/product-detail">
-                    <h5 class="mb-2 text-sm capitalize tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                        acquisitions 2021</h5>
+                <a href="#">
+                    <div class="text-sm text-[#CB282B] dark:text-gray-400">{{p.category.name}}</div>
                 </a>
-                <div class="font-bold text-gray-700 dark:text-gray-400">2.375.000 ₫</div>
-                <div class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">trị giá (3.470.000 ₫)</div>
-                <button
-                   class="flex w-full justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#CB292B] hover:bg-[#920E0C] rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <a href="/#!/product-detail/{{p.id}}">
+                    <h5 class="mb-2 text-sm capitalize tracking-tight text-gray-900 dark:text-white">Noteworthy
+                        {{p.title}}</h5>
+                </a>
+                <div class="font-bold text-gray-700 dark:text-gray-400">{{p.price * 10000 | currency : "" : 0}} ₫</div>
+                <div class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">trị giá ({{p.price * 11000 | currency : "" : 0}} ₫)</div>
+                <button ng-click="addToCart(p)"
+                        class="flex w-full justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#CB292B] hover:bg-[#920E0C] rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="rtl:rotate-180 w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                          fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -13,4 +13,5 @@ myApp.controller("sliderCtrl", ["$scope", "$timeout", function ($scope, $timeout
             keyboard: true,
         });
     })
+    console.log("ahahhaa")
 }]);
