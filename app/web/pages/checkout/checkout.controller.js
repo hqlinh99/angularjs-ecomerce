@@ -9,4 +9,17 @@ myApp.controller("checkoutCtrl", ["$scope", "$timeout", "$location", function ($
             $location.path('/');
         }, 3000)
     }
+
+    $scope.increase = (index) => {
+        if (index !== -1) {
+            $scope.$parent.cart.data[index].quantity += 1;
+        }
+    }
+    
+    $scope.decrease = (index) => {
+        console.log($scope.$parent.cart.data[index].quantity);
+        if (index !== -1 && $scope.$parent.cart.data[index].quantity > 1) {
+            $scope.$parent.cart.data[index].quantity -= 1;
+        }
+    }
 }]);
