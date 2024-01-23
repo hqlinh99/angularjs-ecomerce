@@ -57,7 +57,12 @@
                                                         <p class="mt-1 text-sm text-gray-500">Salmon</p>
                                                     </div>
                                                     <div class="flex flex-1 items-end justify-between text-sm">
-                                                        <p class="text-gray-500">Quantity: {{c.quantity}}</p>
+                                                        <div class="flex">
+                                                            <button ng-click="decrease(index)" ng-disabled="c.quantity === 1"
+                                                                class="border rounded-md px-2">-</button>
+                                                            <span class="float-right text-gray-400 mx-2">{{c.quantity}}</span>
+                                                            <button ng-click="increase(index)" class="border rounded-md px-2">+</button>
+                                                        </div>
 
                                                         <div class="flex">
                                                             <button type="button"

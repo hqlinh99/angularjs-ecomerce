@@ -4,7 +4,7 @@ myApp.controller("checkoutCtrl", ["$scope", "$timeout", "$location", function ($
     })
 
     if (!$scope.$parent.cart.data.length) {
-        $scope.$parent.notify.create({type: "warning", message: "Cart is empty, return to the homepage!"});
+        $scope.$parent.notify.create({ type: "warning", message: "Cart is empty, return to the homepage!" });
         setTimeout(() => {
             $location.path('/');
         }, 3000)
@@ -15,11 +15,20 @@ myApp.controller("checkoutCtrl", ["$scope", "$timeout", "$location", function ($
             $scope.$parent.cart.data[index].quantity += 1;
         }
     }
-    
+
     $scope.decrease = (index) => {
-        console.log($scope.$parent.cart.data[index].quantity);
         if (index !== -1 && $scope.$parent.cart.data[index].quantity > 1) {
             $scope.$parent.cart.data[index].quantity -= 1;
         }
     }
+
+    $scope.user = {};
+
+    $scope.checkout = () => {
+        if ($scope.user.email && $scope.user.cardHolder) {
+            alert('Order successfully placed!');
+        } else {
+            alert('Please fill all the required fields.');
+        }
+    };
 }]);
