@@ -1,3 +1,57 @@
-<div ng-controller="productsCtrl">
-    <div>Hello</div>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Product Lists</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+                                                                   href="https://datatables.net">official DataTables
+            documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th colspan="2">Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>creationAt</th>
+                        <th>updatedAt</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th colspan="2">Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>creationAt</th>
+                        <th>updatedAt</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr ng-repeat="(index, p) in products">
+                        <td>{{p.id}}</td>
+                        <td><img style="height: 50px; width: 50px;" src="{{p.images[0]}}"></td>
+                        <td>{{p.title}}</td>
+                        <td>{{p.category.name}}</td>
+                        <td>{{p.price * 10000 | currency: "": 0}}</td>
+                        <td>{{p.description}}</td>
+                        <td>{{p.creationAt}}</td>
+                        <td>{{p.updatedAt}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
