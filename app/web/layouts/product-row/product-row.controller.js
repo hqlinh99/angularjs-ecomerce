@@ -12,10 +12,20 @@ myApp.controller("productRowCtrl", ["$scope", "productFactory", ($scope, product
             product: product,
             quantity: 1
         }
-        $scope.$parent.cart.add(cartItem);
-        $scope.$parent.notify.create({
-            type: "success",
-            message: "Product " + product.title + product.id + " has already been added to cart"
-        });
+
+        var existingProduct = $scope.$parent.cart.data.find(i => i.product.id === cartItem.product.id);
+        if (existingProduct) {
+            $scope.$parent.notify.create({
+                type: "warning",
+                message: "Product " + product.title + product.id + " existed in cart"
+            });
+        } else {
+            $scope.$parent.cart.add(cartItem);
+
+            $scope.$parent.notify.create({
+                type: "success",
+                message: "Product " + product.title + product.id + " has already been added to cart"
+            });
+        }
     }
 }])
