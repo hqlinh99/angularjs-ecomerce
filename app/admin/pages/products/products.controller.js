@@ -1,7 +1,28 @@
-adminApp.controller("productsCtrl", ["$scope", "$timeout","productFactory", function ($scope, $timeout, productFactory) {
-    $timeout(() => {
+window.productsCtrl = function ($scope, $timeout, productFactory) {
 
-    })
+    $timeout(function () {
+    });
 
-    productFactory.getProducts().then((res) => $scope.products = res.data);
-}]);
+    $scope.getAll = () => {
+        productFactory.getProducts().then((res) => {
+            $scope.products = res.data;
+            angular.element(document).ready(function () {
+                dTable = $('#dataTable')
+                dTable.DataTable();
+            });
+        });
+    }
+
+
+    $scope.deleteProduct = (id) => {
+        let check = confirm('Are you sure you want to delete this product?');
+        if (check) {
+            productFactory.delete(id).then((res) => {
+                $scope.getAll();
+            });
+        }
+    }
+
+    $scope.getAll();
+
+}

@@ -1,4 +1,4 @@
-<div ng-controller="checkoutCtrl">
+
     <div
         class="flex flex-col items-center justify-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
         <ul class="relative flex items-center justify-between space-x-2 sm:space-x-4">
@@ -34,10 +34,10 @@
                     <div class="flex w-full flex-col px-4 py-4">
                         <span class="font-semibold">{{c.product.title}}</span>
                         <div class="flex">
-                            <button ng-click="decrease(index)" ng-disabled="c.quantity === 1"
+                            <button ng-click="$parent.cart.decrease(index)" ng-disabled="c.quantity === 1"
                                 class="border rounded-md px-2">-</button>
                             <span class="float-right text-gray-400 mx-2">{{c.quantity}}</span>
-                            <button ng-click="increase(index)" class="border rounded-md px-2">+</button>
+                            <button ng-click="$parent.cart.increase(index)" class="border rounded-md px-2">+</button>
                         </div>
                         <p class="text-lg font-bold">{{c.product.price * 10000 | currency : ""
                             : 0}}₫</p>
@@ -119,16 +119,16 @@
                     <div class="mt-6 border-t border-b py-2">
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Subtotal</p>
-                            <p class="font-semibold text-gray-900">$399.00</p>
+                            <p class="font-semibold text-gray-900">{{$parent.cart.getTotal() | currency : "" : 0}} đ</p>
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
-                            <p class="font-semibold text-gray-900">$8.00</p>
+                            <p class="font-semibold text-gray-900">0</p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
                         <p class="text-sm font-medium text-gray-900">Total</p>
-                        <p class="text-2xl font-semibold text-gray-900">$408.00</p>
+                        <p class="text-2xl font-semibold text-gray-900">{{$parent.cart.getTotal() | currency : "" : 0}} đ</p>
                     </div>
                 </div>
                 <button type="submit"
@@ -138,4 +138,3 @@
         </div>
     </div>
 
-</div>

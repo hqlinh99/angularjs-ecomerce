@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{pageTitle}}</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the
+        <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">FormData</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="padding: 10px">
+                <form>
+                    <div class="form-group">
+                        <label for="inputAddress">Product Name</label>
+                        <input ng-model="product.title" ng-change="validateForm()" type="text" class="form-control"
+                               id="inputAddress"
+                               placeholder="1234 Main St">
+                        <div ng-show="validate.productName.status" style="color: red">{{validate.productName.message}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea ng-model="product.description" rows="10" type="text" class="form-control"
+                                  id="description"
+                                  placeholder="Apartment, studio, or floor"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="price">Price</label>
+                            <input ng-model="product.price" type="text" class="form-control" id="price">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="quantity">Quantity</label>
+                            <input ng-model="product.quantity" type="text" class="form-control" id="quantity">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Category</label>
+                            <select ng-model="product.category" ng-change="validateForm()" id="inputState"
+                                    class="form-control">
+                                <option hidden>Choose...</option>
+                                <option>Quần</option>
+                                <option>Áo</option>
+                                <option>Váy</option>
+                                <option>Dép</option>
+                                <option>Giày</option>
+                                <option>Túi sách</option>
+                                <option>Phụ kiện</option>
+                            </select>
+                            <div ng-show="validate.category.status" style="color: red">{{validate.category.message}}
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="images">Product Images</label>
+                        <div class="row g-3">
+                            <div ng-repeat="(index, url) in product.images" style="position: relative" class="col-1">
+                                <button ng-click="removeImageUrl(index)" style="position: absolute; right: 0"
+                                        type="button" class="close"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <img style="width: 100px; height: 100px; object-fit: cover"
+                                     ng-src="{{url}}">
+                            </div>
+                            <media-management type="image"></media-management>
+                        </div>
+                    </div>
+                    <button ng-click="saveProduct(product.id)" type="submit" class="btn btn-primary">Save</button>
+                    <a href="/admin/#!/products" class="btn btn-danger">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

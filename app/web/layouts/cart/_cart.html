@@ -58,14 +58,18 @@
                                                     </div>
                                                     <div class="flex flex-1 items-end justify-between text-sm">
                                                         <div class="flex">
-                                                            <button ng-click="decrease(index)" ng-disabled="c.quantity === 1"
-                                                                class="border rounded-md px-2">-</button>
+                                                            <button ng-click="$parent.cart.decrease(index)"
+                                                                    ng-disabled="c.quantity === 1"
+                                                                    class="border rounded-md px-2">-
+                                                            </button>
                                                             <span class="float-right text-gray-400 mx-2">{{c.quantity}}</span>
-                                                            <button ng-click="increase(index)" class="border rounded-md px-2">+</button>
+                                                            <button ng-click="$parent.cart.increase(index)"
+                                                                    class="border rounded-md px-2">+
+                                                            </button>
                                                         </div>
 
                                                         <div class="flex">
-                                                            <button type="button"
+                                                            <button ng-click="$parent.cart.delete(index)" type="button"
                                                                     class="font-medium text-indigo-600 hover:text-indigo-500">
                                                                 Remove
                                                             </button>
@@ -83,7 +87,7 @@
                             <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                                 <div class="flex justify-between text-base font-medium text-gray-900">
                                     <p>Subtotal</p>
-                                    <p>$262.00</p>
+                                    <p>{{$parent.cart.getTotal() | currency : "" : 0}} đ</p>
                                 </div>
                                 <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                 <div class="mt-6">

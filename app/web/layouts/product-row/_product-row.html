@@ -21,7 +21,7 @@
                 </a>
                 <div class="font-bold text-gray-700 dark:text-gray-400">{{p.price * 10000 | currency : "" : 0}} ₫</div>
                 <div class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">trị giá ({{p.price * 11000 | currency : "" : 0}} ₫)</div>
-                <button ng-click="addToCart(p)"
+                <button ng-click="$parent.cart.add({product: p, quantity: 1})"
                         class="flex w-full justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#CB292B] hover:bg-[#920E0C] rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="rtl:rotate-180 w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                          fill="none" viewBox="0 0 14 10">

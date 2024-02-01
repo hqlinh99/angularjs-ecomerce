@@ -1,0 +1,104 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{pageTitle}}</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+                                                                   href="https://datatables.net">official DataTables
+            documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="padding: 10px">
+                <form>
+                    <div class="form-group">
+                        <label for="avatar">Avatar</label>
+                        <div class="col-1">
+                            <img style="width: 100px; height: 100px; object-fit: cover"
+                                 ng-src="{{user.avatar}}">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                Choose Avatar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Paste image url here!</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input ng-model="url" ng-change="validateUrl(url)" type="text" class="form-control"
+                                                   placeholder="https://img.com/...">
+                                            <div ng-show="validate.imageUrl.status" style="color: red">{{validate.imageUrl.message}}</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
+                                            </button>
+                                            <button ng-click="addImageUrl(url)" type="button" class="btn btn-primary">Save changes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name<span style="color: red">*</span></label>
+                        <input ng-model="user.fullName" ng-change="validateForm()" type="text" class="form-control"
+                               id="fullName"
+                               placeholder="Linh Hoang Quang">
+                        <div ng-show="validate.fullName.status" style="color: red">{{validate.fullName.message}}</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="username">Username<span style="color: red">*</span></label>
+                            <input ng-model="user.username" ng-change="validateForm()" type="text" class="form-control"
+                                   id="username">
+                            <div ng-show="validate.username.status" style="color: red">{{validate.username.message}}
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="email">Email<span style="color: red">*</span></label>
+                            <input ng-model="user.email" ng-change="validateForm()" type="text" class="form-control"
+                                   id="email">
+                            <div ng-show="validate.email.status" style="color: red">{{validate.email.message}}</div>
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="role">Role<span style="color: red">*</span></label>
+                            <select ng-model="user.role" ng-change="validateForm()" id="role" class="form-control">
+                                <option hidden value="">Choose...</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="MANAGER">MANAGER</option>
+                                <option value="USER">USER</option>
+                            </select>
+                            <div ng-show="validate.role.status" style="color: red">{{validate.role.message}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="biography">Biography</label>
+                        <textarea ng-model="user.biography" rows="10" type="text" class="form-control"
+                                  id="biography"
+                                  placeholder="Apartment, studio, or floor"></textarea>
+                    </div>
+
+                    <button ng-click="saveUser(user.id)" type="submit" class="btn btn-primary">Save</button>
+                    <a href="/admin/#!/users" class="btn btn-danger">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

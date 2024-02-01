@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "avatar": "https://www.stryx.com/cdn/shop/articles/man-looking-attractive.jpg?v=1666662774",
+      "username": "linhhqph31653",
+      "email": "linhhqph31653@gmail.com",
+      "password": "1234",
+      "fullName": "Hoàng Quang Linhlllllll",
+      "biography": "Lorem Ipsum Ips incorrectly translated into latin text for use in HTML reports and other web technologies such as Safari and Chrome on Android",
+      "role": "USER",
+      "createdAt": "2015-14-13",
+      "updatedAt": 1706778136665
+    },
+    {
+      "avatar": "https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg",
+      "username": "rewrw",
+      "email": "rewrew@fewrewr",
+      "fullName": "4534543reqterqterrwe",
+      "role": "MANAGER",
+      "biography": "ewrew",
+      "createdAt": 1706788238846,
+      "id": 3,
+      "updatedAt": 1706788276177
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "Váy công chúa bé bỏng, hồn nhiên ngây thơ",
+      "price": 199000,
+      "quantity": 100,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipis, sed do eiusmod tempor inc et dolore magna aliqua",
+      "category": "Váy",
+      "images": [
+        "https://romans-cdn.rlab.net/images/original/9c0bbb53-238c-478f-aa46-fceb7c606dce.jpg"
+      ],
+      "createdAt": "2015-14-13",
+      "updatedAt": "2015-14-15"
+    }
+  ],
+  "medias": [
+    {
+      "id": 1,
+      "title": "Product 1",
+      "url": "https://romans-cdn.rlab.net/images/original/9c0bbb53-238c-478f-aa46-fceb7c606dce.jpg"
+    }
+  ]
+}

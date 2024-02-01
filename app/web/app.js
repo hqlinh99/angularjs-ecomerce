@@ -4,15 +4,15 @@ myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $
     $routeProvider
         .when("/", {
             templateUrl: "pages/home/home.html",
-            controller: "homeCtrl"
+            controller: homeCtrl
         })
         .when("/product-detail/:productId", {
-            templateUrl: "pages/product-detail/product-detail.html",
+            templateUrl: "pages/product-detail/add-product.html",
             controller: "productDetailCtrl"
         })
         .when("/checkout", {
             templateUrl: "pages/checkout/checkout.html",
-            controller: "checkoutCtrl"
+            controller: checkoutCtrl
         })
         .otherwise({
             redirectTo: "/"
@@ -21,7 +21,6 @@ myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $
     //     enabled: true,
     //     requireBase: true
     // });
-
 }]);
 
 myApp.controller('myCtrl', ($scope) => {
@@ -44,7 +43,6 @@ myApp.controller('myCtrl', ($scope) => {
             this.data.push(notCopy);
 
             this.setPosition(notCopy);
-            console.log(this.data);
         },
         setScale: function () {
             let s = 1;
@@ -73,15 +71,65 @@ myApp.controller('myCtrl', ($scope) => {
     $scope.cart = {
         data: [],
         add: function (cartItem) {
-            //chua check...
-            this.data.push(cartItem);
-        }
+            let {product} = cartItem;
+            let existingProduct = this.data.find(c => c.product.id === product.id);
+            if (existingProduct) {
+                $scope.notify.create({
+                    type: "warning",
+                    message: "Product " + product.title + product.id + " existed in cart"
+                });
+            } else {
+                this.data.push(cartItem);
+
+                $scope.notify.create({
+                    type: "success",
+                    message: "Product " + product.title + product.id + " has already been added to cart"
+                });
+            }
+
+        },
+        delete: function (index) {
+            this.data.splice(index, 1);
+        },
+        getTotal: function () {
+            let total = 0;
+            for (i = 0; i < this.data.length; i++) {
+                total += this.data[i].product.price * this.data[i].quantity * 10000;
+            }
+            return total;
+        },
+        increase: function(index)
+        {
+            if (index !== -1) {
+                this.data[index].quantity += 1;
+            }
+        },
+        decrease: function(index)
+        {
+            if (index !== -1 && this.data[index].quantity > 1) {
+               this.data[index].quantity -= 1;
+            }
+        },
     };
     $scope.products = [];
     $scope.product = {};
 });
 
-//create factory
+
+// window.productFactory = function ($http)
+// {
+//     const host = "https://api.escuelajs.co/api/v1";
+//     return {
+//         getProducts: () => {
+//             return $http.get(`${host}/products`);
+//         },
+//         getProduct: (id) => {
+//             return $http.get(`${host}/products/` + id);
+//         }
+//     }
+// }
+
+// create factory
 myApp.factory("productFactory", ["$http", ($http) => {
     const host = "https://api.escuelajs.co/api/v1";
     return {

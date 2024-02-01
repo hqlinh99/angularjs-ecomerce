@@ -1,0 +1,71 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">User Lists</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+                                                                   href="https://datatables.net">official DataTables
+            documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+                <a href="/admin/#!/add-user" class="btn btn-primary">Add new</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="padding: 10px">
+                <table class="table table-bordered" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Avatar</th>
+                        <th>Username</th>
+                        <th>FullName</th>
+                        <th>Role</th>
+                        <th>Biography</th>
+                        <th>creationAt</th>
+                        <th>updatedAt</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Avatar</th>
+                        <th>Username</th>
+                        <th>FullName</th>
+                        <th>Role</th>
+                        <th>Biography</th>
+                        <th>creationAt</th>
+                        <th>updatedAt</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>{{ user.id }}</td>
+                        <td><img style="height: 70px; width: 70px; object-fit: cover" ng-src="{{ user.avatar }}">
+                        </td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.fullName }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.biography }}</td>
+                        <td>{{ user.createdAt | date : format: timezone}}</td>
+                        <td>{{ user.updatedAt | date : format: timezone}}</td>
+                        <td>
+                            <a href="/admin/#!/user-detail/{{user.id}}" class="btn btn-primary mb-2">Edit
+                            </a>
+                            <button type="button" class="btn btn-danger" ng-click="deleteUser(user.id)">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

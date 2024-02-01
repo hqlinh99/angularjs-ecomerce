@@ -128,7 +128,7 @@
                                     class="absolute left-2 text-center block text-xs uppercase text-gray-400 tracking-wide font-semibold">
                                 Qty:
                             </div>
-                            <input class="p-2 w-20 text-end rounded-lg border" min="1" ng-init="cartItem.quantity = 1" ng-model="cartItem.quantity"
+                            <input class="p-2 w-20 text-end rounded-lg border" min="1" ng-model="quantity"
                                    type="number"/>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                         <span class="title-font font-normal text-sm text-gray-700 dark:text-gray-400">trị giá({{$parent.product.price * 11000 | currency : "" : 0}} ₫)</span>
                     </div>
                     <div class="flex ml-auto">
-                        <button ng-click="addToCart($parent.product)"
+                        <button ng-click="$parent.cart.add({product: product, quantity: quantity})"
                                 class="flex w-full justify-center items-center px-8 py-2 text-sm font-medium text-center text-white bg-[#CB292B] hover:bg-[#920E0C] rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg class="rtl:rotate-180 w-3.5 h-3.5 me-2" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg"
@@ -167,8 +167,8 @@
                     </div>
                 </div>
                 <div class="flex ml-auto">
-                    <button ng-click="buyProduct()"
-                       class="flex w-full justify-center items-center px-8 py-2 text-sm font-medium text-center text-white bg-[#CB292B] hover:bg-[#920E0C] rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button ng-click="buyProduct({product: product, quantity: quantity})"
+                            class="flex w-full justify-center items-center px-8 py-2 text-sm font-medium text-center text-white bg-[#CB292B] hover:bg-[#920E0C] rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="rtl:rotate-180 w-3.5 h-3.5 me-2" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg"
                              fill="none" viewBox="0 0 14 10">

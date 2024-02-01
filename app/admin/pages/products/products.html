@@ -10,43 +10,60 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+            <div class="d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+                <a href="/admin/#!/add-product" class="btn btn-primary">Add new</a>
+            </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive" style="padding: 10px">
+                <table class="table table-bordered" id="dataTable">
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th colspan="2">Name</th>
+                        <th>Thumbnail</th>
+                        <th>Product Name</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th>Description</th>
                         <th>creationAt</th>
                         <th>updatedAt</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Id</th>
-                        <th colspan="2">Name</th>
+                        <th>Thumbnail</th>
+                        <th>Product Name</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th>Description</th>
                         <th>creationAt</th>
                         <th>updatedAt</th>
+                        <th>Action</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    <tr ng-repeat="(index, p) in products">
-                        <td>{{p.id}}</td>
-                        <td><img style="height: 50px; width: 50px;" src="{{p.images[0]}}"></td>
-                        <td>{{p.title}}</td>
-                        <td>{{p.category.name}}</td>
-                        <td>{{p.price * 10000 | currency: "": 0}}</td>
-                        <td>{{p.description}}</td>
-                        <td>{{p.creationAt}}</td>
-                        <td>{{p.updatedAt}}</td>
+                    <tr ng-repeat="product in products">
+                        <td>{{ product.id }}</td>
+                        <td><img style="height: 100px; width: 70px; object-fit: cover" ng-src="{{ product.images[0] }}">
+                        </td>
+                        <td>{{ product.title }}</td>
+                        <td>{{ product.category }}</td>
+                        <td style="white-space: nowrap">{{ product.price | currency : "": 0}} ₫</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.createdAt | date : format: timezone}}</td>
+                        <td>{{ product.updatedAt | date : format: timezone}}</td>
+                        <td>
+                            <a href="/admin/#!/product-detail/{{product.id}}" class="btn btn-primary mb-2">Edit
+                            </a>
+                            <button type="button" class="btn btn-danger" ng-click="deleteProduct(product.id)">Delete
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
