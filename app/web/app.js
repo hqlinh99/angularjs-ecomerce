@@ -3,15 +3,15 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "pages/home/home.html",
+            templateUrl: "web/pages/home/home.html",
             controller: homeCtrl
         })
         .when("/product-detail/:productId", {
-            templateUrl: "pages/product-detail/add-product.html",
+            templateUrl: "web/pages/product-detail/add-product.html",
             controller: "productDetailCtrl"
         })
         .when("/checkout", {
-            templateUrl: "pages/checkout/checkout.html",
+            templateUrl: "web/pages/checkout/checkout.html",
             controller: checkoutCtrl
         })
         .otherwise({

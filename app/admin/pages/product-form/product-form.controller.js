@@ -68,10 +68,6 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
 
     $scope.validate =
         {
-            imageUrl: {
-                status: false,
-                message: ""
-            },
             productName: {
                 status: false,
                 message: ""
@@ -88,20 +84,15 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
         }
 
     $scope.validateUrl = (url) => {
-        if (url != null && url.indexOf('https://') === 0) {
-            $scope.validate.imageUrl.status = false;
-
-        } else {
-            $scope.validate.imageUrl.status = true;
-            $scope.validate.imageUrl.message = "url is not a valid!";
+        if (url && url.indexOf('https://') !== 0) {
+            alert("url is not a valid");
             return false;
         }
 
         if ($scope.product.images.includes(url)) {
-            $scope.validate.imageUrl.status = true;
-            $scope.validate.imageUrl.message = "url is duplicated!";
+            alert("url image already exists");
             return false;
-        } else $scope.validate.imageUrl.status = false;
+        }
 
         return true;
     }

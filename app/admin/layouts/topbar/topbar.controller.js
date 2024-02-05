@@ -1,5 +1,3 @@
-adminApp.controller('topbarCtrl', ($scope) => {
+adminApp.controller('topbarCtrl', ($scope, authService) => {
     $scope.user = null;
-    $scope.products = [];
-    $scope.product = {};
 });

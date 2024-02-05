@@ -12,6 +12,7 @@
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="/admin/pages/media/media.css" rel="stylesheet">
+    <link href="/admin/components/media-management/media-management.css" rel="stylesheet">
 </head>
 <body id="page-top">
 <div id="wrapper">
@@ -64,7 +65,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button ng-click="logout()" class="btn btn-primary">Logout</button>
                 </div>
             </div>
         </div>
@@ -99,6 +100,7 @@
 <script src="layouts/sidebar/sidebar.controller.js"></script>
 <script src="layouts/topbar/topbar.controller.js"></script>
 <script src="layouts/footer/footer.controller.js"></script>
+<script src="/auth/auth.service.js"></script>
 
 <script src="components/media-management/media-management.component.js"></script>
 

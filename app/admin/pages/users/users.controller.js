@@ -5,14 +5,15 @@ window.usersCtrl = function ($scope, $timeout, userFactory) {
 
     $scope.getAll = () => {
         userFactory.getUsers().then((res) => {
-            $scope.users = res.data;
+            $scope.users = res.data.result;
             angular.element(document).ready(function () {
                 dTable = $('#dataTable')
                 dTable.DataTable();
             });
+        }).catch((err) => {
+            console.log("user.controller::getAllUser " + err);
         });
     }
-
 
     $scope.deleteUser = (id) => {
         let check = confirm('Are you sure you want to delete this user?');

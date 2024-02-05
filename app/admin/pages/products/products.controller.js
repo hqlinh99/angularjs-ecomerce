@@ -1,5 +1,5 @@
 window.productsCtrl = function ($scope, $timeout, productFactory) {
-
+    console.log("Product");
     $timeout(function () {
     });
 

@@ -1,6 +1,7 @@
-var adminApp = angular.module('adminApp', ["ngRoute"]);
+var adminApp = angular.module('adminApp', ["ngRoute", "authService"]);
 
-adminApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+adminApp.config(["$routeProvider", "$httpProvider", "$locationProvider", function ($routeProvider, $httpProvider, $locationProvider) {
+    $httpProvider.interceptors.push('interceptor');
     $routeProvider
         .when("/dashboard", {
             templateUrl: "pages/dashboard/dashboard.html",
@@ -35,14 +36,28 @@ adminApp.config(["$routeProvider", "$locationProvider", function ($routeProvider
             controller: userFormCtrl
         })
         .otherwise({
-            redirectTo: "/products"
+            redirectTo: "/dashboard"
         });
     // $locationProvider.html5Mode({
     //     enabled: true,
     //     requireBase: true
     // });
 }]);
-adminApp.controller('adminCtrl', ($scope) => {
+adminApp.controller('adminCtrl', ($scope, authService) => {
+    var token = authService.getCookie("access_token");
+    if (token) {
+        var auth = authService.getSubjectFromJWT(token);
+        if (auth.roles.includes("CUSTOMER")) {
+            alert("You dont have permission to access this admin page.");
+            window.location.pathname = "/";
+        }
+    }
+
+    $scope.logout = () => {
+        authService.deleteCookie("refresh_token");
+        window.location.pathname = "/auth";
+    }
+
     $scope.user = null;
     $scope.products = [];
     $scope.product = {};
@@ -70,11 +85,15 @@ adminApp.factory("productFactory", ["$http", ($http) => {
     }
 }]);
 
-adminApp.factory("userFactory", ["$http", ($http) => {
+adminApp.factory("userFactory", ($http, authService) => {
     const host = "http://localhost:3000";
     return {
         getUsers: () => {
-            return $http.get(`${host}/users`);
+            return $http.get(`http://localhost:8080/api/v1/accounts`, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         },
         getUser: (id) => {
             return $http.get(`${host}/users/` + id);
@@ -89,4 +108,4 @@ adminApp.factory("userFactory", ["$http", ($http) => {
             return $http.delete(`${host}/users/` + id);
         }
     }
-}]);
+});
