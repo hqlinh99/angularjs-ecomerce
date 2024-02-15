@@ -81,6 +81,7 @@ authService.factory("interceptor", function ($q, $location, authService, $inject
     return {
         responseError: function (response) {
             let $http = $injector.get("$http");
+
             if (response.status === 401) {
                 let refreshToken = authService.getCookie("refresh_token");
                 if (refreshToken === "") window.location.pathname = "/auth";
@@ -88,16 +89,14 @@ authService.factory("interceptor", function ($q, $location, authService, $inject
                 return $http.post("http://localhost:8080/api/v1/refresh-token", {refreshToken: refreshToken})
                     .then((res) => {
                         let {accessToken, refreshToken} = res.data.result;
-
                         response.config.headers["Authorization"] = "Bearer " + accessToken;
                         authService.accessToken = accessToken;
                         authService.setCookie("refresh_token", refreshToken, 86400000);
 
                         return $http(response.config);
                     })
-                    .catch((error) => {
-                        console.log(error)
-                        alert("Access expired, please login again!")
+                    .catch((res) => {
+                        res.data.errors.forEach(err => alert(err.errorMessage));
                         window.location.pathname = "/auth";
                     })
             }

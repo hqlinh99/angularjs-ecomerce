@@ -12,6 +12,7 @@ window.signUpCtrl = function ($scope, $timeout, $location, authFactory) {
     $scope.signUp = (user) => {
         checkRepeatPassword(user)
         {
+            user.createdAt = Date.now();
             authFactory.signUp(user)
                 .then((res) => {
                     alert("Sign up successfully!");

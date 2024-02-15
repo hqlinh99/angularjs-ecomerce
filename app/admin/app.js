@@ -64,26 +64,40 @@ adminApp.controller('adminCtrl', ($scope, authService) => {
 });
 
 //create factory
-adminApp.factory("productFactory", ["$http", ($http) => {
-    const host = "http://localhost:3000";
+adminApp.factory("productFactory", ($http, authService) => {
+    const host = "http://localhost:8080/api/v1";
     return {
         getProducts: () => {
             return $http.get(`${host}/products`);
         },
         getProduct: (id) => {
-            return $http.get(`${host}/products/` + id);
+            return $http.get(`${host}/product/` + id);
         },
         create: (product) => {
-            return $http.post(`${host}/products`, product);
+            return $http.post(`${host}/product`, product, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         },
         update: (id, product) => {
-            return $http.put(`${host}/products/` + id, product);
+            product.price = Number(product.price);
+            product.quantity = Number(product.quantity);
+            return $http.patch(`${host}/product/` + id, product, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         },
         delete: (id) => {
-            return $http.delete(`${host}/products/` + id);
+            return $http.delete(`${host}/product/` + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         }
     }
-}]);
+});
 
 adminApp.factory("userFactory", ($http, authService) => {
     const host = "http://localhost:8080/api/v1";
@@ -103,7 +117,11 @@ adminApp.factory("userFactory", ($http, authService) => {
             });
         },
         create: (account) => {
-            return $http.post(`${host}/account`, account);
+            return $http.post(`${host}/account`, account, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         },
         update: (id, account) => {
             return $http.patch(`${host}/account/` + id, account, {
@@ -114,6 +132,51 @@ adminApp.factory("userFactory", ($http, authService) => {
         },
         delete: (id) => {
             return $http.delete(`${host}/account/` + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
+        }
+    }
+});
+
+adminApp.factory("fileUploadFactory", ($http, authService) => {
+    const host = "http://localhost:8080/api/v1";
+    return {
+        getFileUploads: () => {
+            return $http.get(`${host}/file-uploads`, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
+        },
+        getFileUpload: (id) => {
+            return $http.get(`${host}/file-upload/` + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
+        },
+        create: (file) => {
+            var formData = new FormData();
+            formData.append('multipartFile', file);
+            return $http.post(`${host}/file-upload`, formData, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined,
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
+        },
+        update: (id, fileUpload) => {
+            return $http.patch(`${host}/file-upload/` + id, fileUpload, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
+        },
+        delete: (id) => {
+            return $http.delete(`${host}/file-upload/` + id, {
                 headers: {
                     'Authorization': 'Bearer ' + authService.accessToken
                 }

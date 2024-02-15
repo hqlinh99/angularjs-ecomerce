@@ -24,10 +24,17 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
     }
 
     $scope.addImageUrl = (url) => {
+        console.log(url)
         if ($scope.validateUrl(url)) {
             $scope.user.avatar = url;
+            $scope.url = ""
             $('#exampleModal').modal('hide');
         }
+    }
+
+    $scope.clearAvatar = () => {
+        console.log("??")
+        $scope.user.avatar = "";
     }
 
     $scope.saveUser = (userId) => {
@@ -38,7 +45,7 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
                     $scope.user.updatedAt = Date.now();
                     userFactory.update(userId, $scope.user)
                         .then(res => {
-                            alert('Product updated successfully');
+                            alert('Account updated successfully');
                             $location.path('/users');
                         })
                         .catch(res => {
@@ -82,7 +89,7 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
         }
 
     $scope.validateUrl = (url) => {
-        if (url != null && url.indexOf('https://') === 0) {
+        if (url != null && url.indexOf('http') === 0) {
             $scope.validate.imageUrl.status = false;
             return true;
         } else {

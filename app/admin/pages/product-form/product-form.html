@@ -14,11 +14,12 @@
             <div class="table-responsive" style="padding: 10px">
                 <form>
                     <div class="form-group">
-                        <label for="inputAddress">Product Name</label>
-                        <input ng-model="product.title" ng-change="validateForm()" type="text" class="form-control"
-                               id="inputAddress"
-                               placeholder="1234 Main St">
-                        <div ng-show="validate.productName.status" style="color: red">{{validate.productName.message}}
+                        <label for="name">Product Name</label>
+                        <input ng-model="product.name" ng-change="validateForm()" type="text" class="form-control"
+                               id="name"
+                               placeholder="Sweater">
+                        <div ng-show="validate.name.status" style="color: red">
+                            <i class="fa fa-exclamation-circle"></i> {{validate.name.message}}
                         </div>
                     </div>
                     <div class="form-group">
@@ -31,14 +32,20 @@
                         <div class="form-group col-md-4">
                             <label for="price">Price</label>
                             <input ng-model="product.price" type="text" class="form-control" id="price">
+                            <div ng-show="validate.price.status" style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> {{validate.price.message}}
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="quantity">Quantity</label>
                             <input ng-model="product.quantity" type="text" class="form-control" id="quantity">
+                            <div ng-show="validate.quantity.status" style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> {{validate.quantity.message}}
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputState">Category</label>
-                            <select ng-model="product.category" ng-change="validateForm()" id="inputState"
+                            <label for="productType">Category</label>
+                            <select ng-model="product.productType" ng-change="validateForm()" id="productType"
                                     class="form-control">
                                 <option hidden>Choose...</option>
                                 <option>Quần</option>
@@ -49,9 +56,9 @@
                                 <option>Túi sách</option>
                                 <option>Phụ kiện</option>
                             </select>
-                            <div ng-show="validate.category.status" style="color: red">{{validate.category.message}}
+                            <div ng-show="validate.productType.status" style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> {{validate.productType.message}}
                             </div>
-
                         </div>
                     </div>
                     <div class="form-group">
@@ -66,7 +73,46 @@
                                 <img style="width: 100px; height: 100px; object-fit: cover"
                                      ng-src="{{url}}">
                             </div>
-                            <media-management type="image"></media-management>
+                            <!--                            media modal-->
+                            <div style="width: 100px; height: 100px"
+                                 class="col d-flex align-items-center justify-content-center">
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        class="btn btn-outline-primary">
+                                    Choose image
+                                </button>
+                                <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Media Management</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <media-management type="image"></media-management>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+
+                                                <div><i class="fa fa-info-circle"></i> {{info}}</div>
+                                                <div>
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
+                                                        Cancel
+                                                    </button>
+                                                    <button ng-click="addImageUrl(url)" type="button"
+                                                            class="btn btn-primary">OK
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button ng-click="saveProduct(product.id)" type="submit" class="btn btn-primary">Save</button>

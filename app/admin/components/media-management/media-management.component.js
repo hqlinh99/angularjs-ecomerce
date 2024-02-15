@@ -1,35 +1,30 @@
 adminApp.component('mediaManagement', {
     templateUrl: "components/media-management/media-management.html",
-    controller: function ($scope, $attrs) {
+    controller: function ($scope, $attrs, fileUploadFactory) {
         $scope.type = $attrs.type;
         if ($attrs.type === 'image') {
 
         }
 
-        $scope.items = [
-            {
-                id: 1,
-                name: '1701878932176351232/AlNU3WTK_400x400.jpg',
-                url: "https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg",
-                type: "image"
-            }, {
-                id: 2,
-                name: '1701878932176351232/AlNU3WTK_400x400.jpg',
-                url: "https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg",
-                type: "image"
-            }, {
-                id: 3,
-                name: '1701878932176351232/AlNU3WTK_400x400.jpg',
-                url: "https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg",
-                type: "image"
-            }, {
-                id: 4,
-                name: '1701878932176351232/AlNU3WTK_400x400.jpg',
-                url: "https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg",
-                type: "image"
-            },
-            // ...
-        ];
+        fileUploadFactory.getFileUploads()
+            .then(function (res) {
+                $scope.items = res.data.result;
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+        $scope.uploadSingleFile = (data) => {
+            fileUploadFactory.create(data.files[0])
+              .then(function (res) {
+                    $scope.items.push(res.data.result);
+                })
+              .catch(function (res) {
+                    res.data.errors.forEach(err => alert(err.errorMessage));
+                });
+        }
+
+        $scope.contentTypeStartsWith = (contentType, type) => contentType.startsWith(type);
 
         $scope.selectItem = function (item) {
             $scope.items.forEach(item => {
@@ -38,14 +33,18 @@ adminApp.component('mediaManagement', {
             });
             item.isSelected = !item.isSelected;
             item.isTrash = !item.isTrash;
-            $scope.url = item.url;
-            $scope.info = item.name + " is selected";
+            $scope.$parent.url = item.url;
+            $scope.$parent.info = item.name + " is selected";
+        };
+
+        $scope.clearSelected = function () {
+            $scope.$parent.url = null;
+            $scope.$parent.info = "";
         };
 
         $scope.delete = (id) => {
             let check = confirm("Are you sure you want to delete?")
-            if (check)
-            {
+            if (check) {
                 $scope.items.splice(id, 1);
                 $scope.clearSelected();
             }

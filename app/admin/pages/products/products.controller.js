@@ -1,18 +1,16 @@
 window.productsCtrl = function ($scope, $timeout, productFactory) {
-    console.log("Product");
     $timeout(function () {
     });
 
     $scope.getAll = () => {
         productFactory.getProducts().then((res) => {
-            $scope.products = res.data;
+            $scope.products = res.data.result;
             angular.element(document).ready(function () {
                 dTable = $('#dataTable')
                 dTable.DataTable();
             });
         });
     }
-
 
     $scope.deleteProduct = (id) => {
         let check = confirm('Are you sure you want to delete this product?');

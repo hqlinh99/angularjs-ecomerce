@@ -17,45 +17,57 @@
                 <form>
                     <div class="form-group">
                         <label for="avatar">Avatar</label>
-                        <div class="col-1">
-                            <img style="width: 100px; height: 100px; object-fit: cover"
-                                 ng-src="{{user.avatar}}">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                Choose Avatar
-                            </button>
+                        <div class="row g-3">
+                            <div style="position: relative" class="col-1">
+                                <button ng-click="clearAvatar()" style="position: absolute; right: 0"
+                                        type="button" class="close"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <img style="width: 100px; height: 100px; object-fit: cover"
+                                     ng-src="{{user.avatar}}">
+                            </div>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Paste image url here!</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input ng-model="url" ng-change="validateUrl(url)" type="text"
-                                                   class="form-control"
-                                                   placeholder="https://img.com/...">
-                                            <div ng-show="validate.imageUrl.status" style="color: red">
-                                                {{validate.imageUrl.message}}
+<!--                            media modal-->
+                            <div style="width: 100px; height: 100px"
+                                 class="col d-flex align-items-center justify-content-center">
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        class="btn btn-outline-primary">
+                                    Choose image
+                                </button>
+                                <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Media Management</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
-                                            </button>
-                                            <button ng-click="addImageUrl(url)" type="button" class="btn btn-primary">
-                                                Save changes
-                                            </button>
+                                            <div class="modal-body">
+                                                <media-management type="image"></media-management>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+
+                                                <div><i class="fa fa-info-circle"></i> {{info}}</div>
+                                                <div>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Cancel
+                                                    </button>
+                                                    <button ng-click="addImageUrl(url)" type="button"
+                                                            class="btn btn-primary">OK
+                                                    </button>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -64,7 +76,6 @@
                                    id="firstName">
                             <div ng-show="validate.firstName.status" style="color: red">{{validate.firstName.message}}
                             </div>
-
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastName">Last Name<span style="color: red">*</span></label>
@@ -72,7 +83,6 @@
                                    id="lastName">
                             <div ng-show="validate.lastName.status" style="color: red">{{validate.lastName.message}}
                             </div>
-
                         </div>
                     </div>
                     <div class="form-row">
