@@ -3,15 +3,17 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
         {
             avatar: "",
             username: "",
+            firstName: "",
+            lastName: "",
             email: "",
-            fullName: "",
+            biography: "",
             role: "",
         }
 
     if (userId = $routeParams.userId) {
         $scope.pageTitle = "User Lists"
         userFactory.getUser(userId)
-            .then(res => $scope.user = res.data)
+            .then(res => $scope.user = res.data.result)
             .catch(err => {
                 alert(err.statusText);
                 $location.path('/users');
@@ -39,8 +41,9 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
                             alert('Product updated successfully');
                             $location.path('/users');
                         })
-                        .catch(err => {
-                            alert(err.statusText);
+                        .catch(res => {
+                            console.log(res.data.errors)
+                            alert(res.data.errors);
                         });
                 }
             } else {

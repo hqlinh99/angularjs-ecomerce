@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ["ngRoute"]);
+var myApp = angular.module('myApp', ["ngRoute", "authService"]);
 
 myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -98,39 +98,21 @@ myApp.controller('myCtrl', ($scope) => {
             }
             return total;
         },
-        increase: function(index)
-        {
+        increase: function (index) {
             if (index !== -1) {
                 this.data[index].quantity += 1;
             }
         },
-        decrease: function(index)
-        {
+        decrease: function (index) {
             if (index !== -1 && this.data[index].quantity > 1) {
-               this.data[index].quantity -= 1;
+                this.data[index].quantity -= 1;
             }
         },
     };
     $scope.products = [];
     $scope.product = {};
 });
-
-
-// window.productFactory = function ($http)
-// {
-//     const host = "https://api.escuelajs.co/api/v1";
-//     return {
-//         getProducts: () => {
-//             return $http.get(`${host}/products`);
-//         },
-//         getProduct: (id) => {
-//             return $http.get(`${host}/products/` + id);
-//         }
-//     }
-// }
-
-// create factory
-myApp.factory("productFactory", ["$http", ($http) => {
+myApp.factory("productFactory", ($http) => {
     const host = "https://api.escuelajs.co/api/v1";
     return {
         getProducts: () => {
@@ -140,4 +122,4 @@ myApp.factory("productFactory", ["$http", ($http) => {
             return $http.get(`${host}/products/` + id);
         }
     }
-}]);
+});

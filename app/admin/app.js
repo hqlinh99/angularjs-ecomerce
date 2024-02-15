@@ -86,26 +86,38 @@ adminApp.factory("productFactory", ["$http", ($http) => {
 }]);
 
 adminApp.factory("userFactory", ($http, authService) => {
-    const host = "http://localhost:3000";
+    const host = "http://localhost:8080/api/v1";
     return {
         getUsers: () => {
-            return $http.get(`http://localhost:8080/api/v1/accounts`, {
+            return $http.get(`${host}/accounts`, {
                 headers: {
                     'Authorization': 'Bearer ' + authService.accessToken
                 }
             });
         },
         getUser: (id) => {
-            return $http.get(`${host}/users/` + id);
+            return $http.get(`${host}/account/` + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         },
         create: (account) => {
-            return $http.post(`${host}/users`, account);
+            return $http.post(`${host}/account`, account);
         },
         update: (id, account) => {
-            return $http.put(`${host}/users/` + id, account);
+            return $http.patch(`${host}/account/` + id, account, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         },
         delete: (id) => {
-            return $http.delete(`${host}/users/` + id);
+            return $http.delete(`${host}/account/` + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + authService.accessToken
+                }
+            });
         }
     }
 });

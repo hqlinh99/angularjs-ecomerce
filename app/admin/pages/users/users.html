@@ -49,8 +49,8 @@
                         <td>{{ user.id }}</td>
                         <td><img style="height: 70px; width: 70px; object-fit: cover" ng-src="{{ user.avatar }}">
                         </td>
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.firstName + ' ' +user.lastName }}</td>
                         <td>{{ user.role }}</td>
                         <td>{{ user.biography }}</td>
                         <td>{{ user.createdAt | date : format: timezone}}</td>

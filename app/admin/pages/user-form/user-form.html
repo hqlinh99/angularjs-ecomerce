@@ -37,14 +37,18 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <input ng-model="url" ng-change="validateUrl(url)" type="text" class="form-control"
+                                            <input ng-model="url" ng-change="validateUrl(url)" type="text"
+                                                   class="form-control"
                                                    placeholder="https://img.com/...">
-                                            <div ng-show="validate.imageUrl.status" style="color: red">{{validate.imageUrl.message}}</div>
+                                            <div ng-show="validate.imageUrl.status" style="color: red">
+                                                {{validate.imageUrl.message}}
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
                                             </button>
-                                            <button ng-click="addImageUrl(url)" type="button" class="btn btn-primary">Save changes
+                                            <button ng-click="addImageUrl(url)" type="button" class="btn btn-primary">
+                                                Save changes
                                             </button>
                                         </div>
                                     </div>
@@ -53,12 +57,23 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
-                        <label for="fullName">Full Name<span style="color: red">*</span></label>
-                        <input ng-model="user.fullName" ng-change="validateForm()" type="text" class="form-control"
-                               id="fullName"
-                               placeholder="Linh Hoang Quang">
-                        <div ng-show="validate.fullName.status" style="color: red">{{validate.fullName.message}}</div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstName">First Name<span style="color: red">*</span></label>
+                            <input ng-model="user.firstName" ng-change="validateForm()" type="text" class="form-control"
+                                   id="firstName">
+                            <div ng-show="validate.firstName.status" style="color: red">{{validate.firstName.message}}
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastName">Last Name<span style="color: red">*</span></label>
+                            <input ng-model="user.lastName" ng-change="validateForm()" type="text" class="form-control"
+                                   id="lastName">
+                            <div ng-show="validate.lastName.status" style="color: red">{{validate.lastName.message}}
+                            </div>
+
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -82,7 +97,8 @@
                                 <option hidden value="">Choose...</option>
                                 <option value="ADMIN">ADMIN</option>
                                 <option value="MANAGER">MANAGER</option>
-                                <option value="USER">USER</option>
+                                <option value="SUB_MANAGER">SUB_MANAGER</option>
+                                <option value="CUSTOMER">CUSTOMER</option>
                             </select>
                             <div ng-show="validate.role.status" style="color: red">{{validate.role.message}}</div>
                         </div>
@@ -91,7 +107,7 @@
                         <label for="biography">Biography</label>
                         <textarea ng-model="user.biography" rows="10" type="text" class="form-control"
                                   id="biography"
-                                  placeholder="Apartment, studio, or floor"></textarea>
+                                  placeholder="A biography is a life history written for a general audience. Some things to include in a biography are:"></textarea>
                     </div>
 
                     <button ng-click="saveUser(user.id)" type="submit" class="btn btn-primary">Save</button>

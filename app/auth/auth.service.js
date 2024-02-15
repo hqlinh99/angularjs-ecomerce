@@ -97,6 +97,7 @@ authService.factory("interceptor", function ($q, $location, authService, $inject
                     })
                     .catch((error) => {
                         console.log(error)
+                        alert("Access expired, please login again!")
                         window.location.pathname = "/auth";
                     })
             }
