@@ -1,4 +1,5 @@
 window.productFormCtrl = function ($scope, $routeParams, productFactory, $location) {
+    if ($scope.$parent.user.roles[0] === "ROLE_CUSTOMER") $location.path("/");
     $scope.product =
         {
             name: "",
@@ -10,7 +11,7 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
         }
 
     if (productId = $routeParams.productId) {
-        $scope.pageTitle = "Update Product";
+        $scope.$parent.pageTitle = "Update Product";
         productFactory.getProduct(productId)
             .then(res => $scope.product = res.data.result)
             .catch(err => {
@@ -18,7 +19,7 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
                 $location.path('/products');
             });
     } else {
-        $scope.pageTitle = "Add New Product";
+        $scope.$parent.pageTitle = "Add New Product";
 
     }
 

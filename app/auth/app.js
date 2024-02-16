@@ -1,5 +1,3 @@
-var authApp = angular.module('authApp', ["ngRoute", "authService"]);
-
 authApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/login", {
@@ -22,12 +20,9 @@ authApp.config(["$routeProvider", "$locationProvider", function ($routeProvider,
     //     requireBase: true
     // });
 }]);
-authApp.controller('authCtrl', ($scope, authService) => {
-    // var token = authService.getCookie("access_token");
-    // if (token) {
-    //     var auth = authService.getSubjectFromJWT(token);
-    //     authService.checkRedirect(auth.roles);
-    // }
+authApp.controller('authCtrl', ($scope, $cookies, authService) => {
+    var auth = authService.getSubjectFromJWT($cookies.get("refresh_token"));
+    if (auth) authService.checkRedirect(auth.roles);
 });
 
 

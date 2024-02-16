@@ -1,4 +1,5 @@
 window.usersCtrl = function ($scope, $timeout, userFactory) {
+    if ($scope.$parent.user.roles[0] === "ROLE_CUSTOMER") $location.path("/");
 
     $timeout(function () {
     });

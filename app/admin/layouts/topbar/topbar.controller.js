@@ -1,3 +1,4 @@
-adminApp.controller('topbarCtrl', ($scope, authService) => {
-    $scope.user = null;
+adminApp.controller('topbarCtrl', ($scope, $cookies, authService) => {
+
+    console.log($scope.$parent.user)
 });

@@ -1,12 +1,6 @@
-myApp.controller("productDetailCtrl", ["$scope", "$timeout", "$routeParams", "$location", "productFactory", function ($scope, $timeout, $routeParams, $location, productFactory) {
-    $timeout(() => {
-        // <script src='layout/menu/cart.controller.js'></script>
-    })
-
-
-
+window.productDetailCtrl = function($scope, $routeParams, $location, productFactory) {
     productFactory.getProduct($routeParams.productId).then(res => {
-        $scope.product = res.data;
+        $scope.product = res.data.result;
         $scope.imageSelectedIndex = 0;
     });
 
@@ -22,4 +16,4 @@ myApp.controller("productDetailCtrl", ["$scope", "$timeout", "$routeParams", "$l
 
         $location.path("/checkout");
     }
-}]);
+}

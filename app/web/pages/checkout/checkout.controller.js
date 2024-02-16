@@ -22,9 +22,3 @@ window.checkoutCtrl =  function ($scope, $timeout, $location) {
         }
     };
 }
-
-
-
-// myApp.controller("checkoutCtrl", ["$scope", "$timeout", "$location", function ($scope, $timeout, $location) {
-//
-// }]);

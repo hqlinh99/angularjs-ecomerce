@@ -1,5 +1,3 @@
-var myApp = angular.module('myApp', ["ngRoute", "authService"]);
-
 myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/", {
@@ -7,8 +5,8 @@ myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $
             controller: homeCtrl
         })
         .when("/product-detail/:productId", {
-            templateUrl: "web/pages/product-detail/add-product.html",
-            controller: "productDetailCtrl"
+            templateUrl: "web/pages/product-detail/product-detail.html",
+            controller: productDetailCtrl
         })
         .when("/checkout", {
             templateUrl: "web/pages/checkout/checkout.html",
@@ -111,15 +109,4 @@ myApp.controller('myCtrl', ($scope) => {
     };
     $scope.products = [];
     $scope.product = {};
-});
-myApp.factory("productFactory", ($http) => {
-    const host = "https://api.escuelajs.co/api/v1";
-    return {
-        getProducts: () => {
-            return $http.get(`${host}/products`);
-        },
-        getProduct: (id) => {
-            return $http.get(`${host}/products/` + id);
-        }
-    }
 });

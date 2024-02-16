@@ -1,3 +1,3 @@
-window.mediasCtrl = function ($scope, $routeParams, productFactory, $location) {
-
+window.mediasCtrl = function ($scope) {
+    $scope.$parent.pageTitle = "Media Management";
 }

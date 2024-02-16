@@ -1,4 +1,5 @@
 window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
+    if ($scope.$parent.user.roles[0] === "ROLE_CUSTOMER") $location.path("/");
     $scope.user =
         {
             avatar: "",
@@ -11,7 +12,7 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
         }
 
     if (userId = $routeParams.userId) {
-        $scope.pageTitle = "User Lists"
+        $scope.$parent.pageTitle = "Update User"
         userFactory.getUser(userId)
             .then(res => $scope.user = res.data.result)
             .catch(err => {
@@ -19,7 +20,7 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
                 $location.path('/users');
             });
     } else {
-        $scope.pageTitle = "Add New User"
+        $scope.$parent.pageTitle = "Add New User"
 
     }
 
@@ -46,6 +47,7 @@ window.userFormCtrl = function ($scope, $routeParams, userFactory, $location) {
                     userFactory.update(userId, $scope.user)
                         .then(res => {
                             alert('Account updated successfully');
+                            if ($scope.$parent.user.sub == userId) $scope.$parent.user.avatar = res.data.result.avatar;
                             $location.path('/users');
                         })
                         .catch(res => {

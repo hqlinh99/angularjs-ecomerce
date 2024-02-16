@@ -1,6 +1,6 @@
-window.productsCtrl = function ($scope, $timeout, productFactory) {
-    $timeout(function () {
-    });
+window.productsCtrl = function ($scope, $location, productFactory) {
+    if ($scope.$parent.user.roles[0] === "ROLE_CUSTOMER") $location.path("/");
+    $scope.$parent.pageTitle = "Product List";
 
     $scope.getAll = () => {
         productFactory.getProducts().then((res) => {

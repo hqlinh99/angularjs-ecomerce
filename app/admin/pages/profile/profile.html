@@ -1,0 +1,153 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card mb-4">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <div class="text-center border-end">
+                                <img ng-src="{{user.avatar}}"
+                                     class="img-fluid avatar-xxl rounded-circle" alt="">
+                                <h4 class="text-primary font-size-20 mt-3 mb-2">
+                                    {{ user.firstName + ' '+ user.lastName }}</h4>
+                                <h5 class="text-muted font-size-13 mb-0">Web Designer</h5>
+                            </div>
+                        </div><!-- end col -->
+                        <div class="col-md-9">
+                            <div class="ms-3">
+                                <div>
+                                    <h4 class="card-title mb-2">Biography</h4>
+                                    <p class="mb-0 text-muted">{{user.biography}}</p>
+                                </div>
+                                <div class="row my-4">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <p class="text-muted mb-2 fw-medium"><i
+                                                    class="mdi mdi-email-outline me-2"></i>{{user.email}}
+                                            </p>
+                                            <p class="text-muted fw-medium mb-0"><i
+                                                    class="mdi mdi-phone-in-talk-outline me-2"></i>418-955-4703
+                                            </p>
+                                        </div>
+                                    </div><!-- end col -->
+                                </div><!-- end row -->
+                            </div>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div><!-- end card body -->
+            </div><!-- end card -->
+            <!--tabs-->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button"
+                            role="tab" aria-controls="home" aria-selected="true">Orders
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
+                            role="tab" aria-controls="profile" aria-selected="false">Profile
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button"
+                            role="tab" aria-controls="contact" aria-selected="false">Contact
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Placeholder
+                    content for the tab panel. This one relates to the home tab. Takes you miles high, so high, 'cause
+                    she’s got that one international smile. There's a stranger in my bed, there's a pounding in my head.
+                    Oh, no. In another life I would make you stay. ‘Cause I, I’m capable of anything. Suiting up for my
+                    crowning battle. Used to steal your parents' liquor and climb to the roof. Tone, tan fit and ready,
+                    turn it up cause its gettin' heavy. Her love is like a drug. I guess that I forgot I had a choice.
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+            </div>
+        </div><!-- end col -->
+
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="pb-2">
+                        <h4 class="card-title mb-3">About</h4>
+                        <p>Hi I'm Jansh, has been the industry's standard dummy text To an English
+                            person, it will seem like
+                            simplified.</p>
+                        <ul class="ps-3 mb-0">
+                            <li>it will seem like simplified.</li>
+                            <li>To achieve this, it would be necessary to have uniform pronunciation</li>
+                        </ul>
+                        <!-- end ul -->
+                    </div>
+                    <hr>
+                    <div class="pt-2">
+                        <h4 class="card-title mb-4">My Skill</h4>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <span class="badge badge-soft-secondary p-2">HTML</span>
+                            <span class="badge badge-soft-secondary p-2">Bootstrap</span>
+                            <span class="badge badge-soft-secondary p-2">Scss</span>
+                            <span class="badge badge-soft-secondary p-2">Javascript</span>
+                            <span class="badge badge-soft-secondary p-2">React</span>
+                            <span class="badge badge-soft-secondary p-2">Angular</span>
+                        </div>
+                    </div>
+                </div><!-- end cardbody -->
+            </div><!-- end card -->
+
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h4 class="card-title mb-4">Personal Details</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Name</th>
+                                    <td>Jansh Wells</td>
+                                </tr><!-- end tr -->
+                                <tr>
+                                    <th scope="row">Location</th>
+                                    <td>California, United States</td>
+                                </tr><!-- end tr -->
+                                <tr>
+                                    <th scope="row">Language</th>
+                                    <td>English</td>
+                                </tr><!-- end tr -->
+                                <tr>
+                                    <th scope="row">Website</th>
+                                    <td>abc12@probic.com</td>
+                                </tr><!-- end tr -->
+                                </tbody><!-- end tbody -->
+                            </table><!-- end table -->
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h4 class="card-title mb-4">Work Experince</h4>
+                        <ul class="list-unstyled work-activity mb-0">
+                            <li class="work-item" data-date="2020-21">
+                                <h6 class="lh-base mb-0">ABCD Company</h6>
+                                <p class="font-size-13 mb-2">Web Designer</p>
+                                <p>To achieve this, it would be necessary to have uniform grammar, and more
+                                    common words.</p>
+                            </li>
+                            <li class="work-item" data-date="2019-20">
+                                <h6 class="lh-base mb-0">XYZ Company</h6>
+                                <p class="font-size-13 mb-2">Graphic Designer</p>
+                                <p class="mb-0">It will be as simple as occidental in fact, it will be
+                                    Occidental person, it will seem like simplified.</p>
+                            </li>
+                        </ul><!-- end ul -->
+                    </div>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div>
+
+</div>

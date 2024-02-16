@@ -12,7 +12,7 @@
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="/admin/pages/media/media.css" rel="stylesheet">
-    <link href="/admin/components/media-management/media-management.css" rel="stylesheet">
+    <link href="/component/media-management/media-management.css" rel="stylesheet">
 </head>
 <body>
 
@@ -37,10 +37,14 @@
 <script src="/assets/js/demo/datatables-demo.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
-<script src="app.js"></script>
-<script src="pages/login/login.controller.js"></script>
-<script src="pages/signup/signup.controller.js"></script>
-<script src="pages/forgot-password/forgot-password.controller.js"></script>
-<script src="auth.service.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+<script src="/module.js"></script>
+<script src="/auth/app.js"></script>
+<script src="/auth/pages/login/login.controller.js"></script>
+<script src="/auth/pages/signup/signup.controller.js"></script>
+<script src="/auth/pages/forgot-password/forgot-password.controller.js"></script>
+
+<!-- Service level custom scripts -->
+<script src="/service/auth.service.js"></script>
 </body>
 </html>
