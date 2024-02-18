@@ -6,11 +6,10 @@
                     <div class="row align-items-center">
                         <div class="col-md-3">
                             <div class="text-center border-end">
-                                <img ng-src="{{user.avatar}}"
+                                <img style="aspect-ratio: 1" ng-src="{{user.avatar}}"
                                      class="img-fluid avatar-xxl rounded-circle" alt="">
                                 <h4 class="text-primary font-size-20 mt-3 mb-2">
                                     {{ user.firstName + ' '+ user.lastName }}</h4>
-                                <h5 class="text-muted font-size-13 mb-0">Web Designer</h5>
                             </div>
                         </div><!-- end col -->
                         <div class="col-md-9">
@@ -37,38 +36,109 @@
                 </div><!-- end card body -->
             </div><!-- end card -->
             <!--tabs-->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button"
-                            role="tab" aria-controls="home" aria-selected="true">Orders
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
-                            role="tab" aria-controls="profile" aria-selected="false">Profile
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button"
-                            role="tab" aria-controls="contact" aria-selected="false">Contact
-                    </button>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Placeholder
-                    content for the tab panel. This one relates to the home tab. Takes you miles high, so high, 'cause
-                    she’s got that one international smile. There's a stranger in my bed, there's a pounding in my head.
-                    Oh, no. In another life I would make you stay. ‘Cause I, I’m capable of anything. Suiting up for my
-                    crowning battle. Used to steal your parents' liquor and climb to the roof. Tone, tan fit and ready,
-                    turn it up cause its gettin' heavy. Her love is like a drug. I guess that I forgot I had a choice.
+            <div class="mb-4">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home"
+                                type="button"
+                                role="tab" aria-controls="home" aria-selected="true">Orders Completed
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
+                                role="tab" aria-controls="profile" aria-selected="false">Profile
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button"
+                                role="tab" aria-controls="contact" aria-selected="false">Contact
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane border-bottom border-left border-right rounded-bottom  bg-white fade show active"
+                         id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card-body">
+                            <div ng-repeat="(orderIndex, order) in orders | orderBy: '-createdAt'" class="card mb-4">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                    <span ng-show="order.status === 'PENDING'"
+                                          class="badge badge-warning">PENDING</span>
+                                            <span ng-show="order.status === 'APPROVED'"
+                                                  class="badge badge-success">APPROVED</span>
+                                            <span ng-show="order.status === 'DELIVERING'"
+                                                  class="badge badge-primary">DELIVERING</span>
+                                            <span ng-show="order.status === 'COMPLETED'"
+                                                  class="badge badge-success">COMPLETED</span>
+                                            <span ng-show="order.status === 'CANCELLED'" class="badge badge-danger">CANCELLED</span>
+                                            <span ng-show="order.status === 'REJECTED'"
+                                                  class="badge badge-danger">REJECTED</span>
+                                            <span>#{{order.id}} - {{order.account.firstName + ' ' +order.account.lastName}}</span>
+                                        </div>
+                                        <div>{{order.createdAt | date:"dd/MM/yyyy 'at' h:mma"}}</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>Index</th>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="(orderItemIndex, orderItem) in order.orderItems">
+                                            <td>{{orderItemIndex + 1}}</td>
+                                            <td><img style="height: 50px; width: 50px; object-fit: cover"
+                                                     ng-src="{{ orderItem.product.images[0] }}">
+                                            <td>{{orderItem.product.name}}</td>
+                                            <td>{{orderItem.quantity}}</td>
+                                            <td>{{orderItem.price | currency : "$" : 0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="font-weight-bold">Total Amount</td>
+                                            <td class="font-weight-bold">{{order.totalAmount | currency : "$" : 0}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="font-italic">Payment Method:
+                                        <span ng-show="order.payment.method === 'CASH'">CASH</span>
+                                        <span ng-show="order.payment.method === 'VNPAY'"
+                                              class="badge badge-primary">VNPAY</span>
+                                        <span ng-show="order.payment.method === 'MOMO'"
+                                              class="badge badge-info">MOMO</span>
+                                    </div>
+                                    <div class="font-italic">Payment Status:
+                                        <span ng-show="order.payment.status === 'PAID'"
+                                              class="badge badge-success">PAID</span>
+                                        <span ng-show="order.payment.status === 'PAYING'"
+                                              class="badge badge-warning">PAYING</span>
+                                        <span ng-show="order.payment.status === 'FAILED'"
+                                              class="badge badge-danger">FAILED</span>
+                                    </div>
+                                    <div class="font-italic">Note: {{order.note}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane border-bottom border-left border-right rounded-bottom  bg-white fade"
+                         id="profile"
+                         role="tabpanel" aria-labelledby="profile-tab">...
+                    </div>
+                    <div class="tab-pane border-bottom border-left border-right rounded-bottom  bg-white fade"
+                         id="contact"
+                         role="tabpanel" aria-labelledby="contact-tab">...
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
         </div><!-- end col -->
 
         <div class="col-xl-4">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <div class="pb-2">
                         <h4 class="card-title mb-3">About</h4>
@@ -96,7 +166,7 @@
                 </div><!-- end cardbody -->
             </div><!-- end card -->
 
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <div>
                         <h4 class="card-title mb-4">Personal Details</h4>
@@ -126,7 +196,7 @@
                 </div><!-- end card body -->
             </div><!-- end card -->
 
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <div>
                         <h4 class="card-title mb-4">Work Experince</h4>

@@ -3,8 +3,8 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <a href="/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-shopping-cart fa-sm text-white-50"></i> Shop now</a>
     </div>
 
     <!-- Content Row -->
@@ -17,7 +17,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Earnings (Monthly)</div>
+                                Earnings (Monthly)
+                            </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                         </div>
                         <div class="col-auto">
@@ -35,7 +36,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings (Annual)</div>
+                                Earnings (Annual)
+                            </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                         </div>
                         <div class="col-auto">
@@ -82,7 +84,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Requests</div>
+                                Pending Requests
+                            </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                         </div>
                         <div class="col-auto">
@@ -104,14 +107,14 @@
                 <!-- Card Header - Dropdown -->
                 <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Orders</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown-toggle" href="#" role="button" id="dropdownMenuOrder"
+                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
+                        </div>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
+                             aria-labelledby="dropdownMenuOrder">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -122,8 +125,103 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                    <div ng-repeat="(orderIndex, order) in orders | orderBy: '-createdAt'" class="card mb-4">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <span ng-show="order.status === 'PENDING'"
+                                          class="badge badge-warning">PENDING</span>
+                                    <span ng-show="order.status === 'APPROVED'"
+                                          class="badge badge-success">APPROVED</span>
+                                    <span ng-show="order.status === 'DELIVERING'"
+                                          class="badge badge-primary">DELIVERING</span>
+                                    <span ng-show="order.status === 'COMPLETED'"
+                                          class="badge badge-success">COMPLETED</span>
+                                    <span ng-show="order.status === 'CANCELLED'"
+                                          class="badge badge-danger">CANCELLED</span>
+                                    <span ng-show="order.status === 'REJECTED'"
+                                          class="badge badge-danger">REJECTED</span>
+                                    <span>#{{order.id}} - {{order.account.firstName + ' ' +order.account.lastName}}</span>
+                                </div>
+                                <div>{{order.createdAt | date:"dd/MM/yyyy 'at' h:mma"}}</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Index</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(orderItemIndex, orderItem) in order.orderItems">
+                                    <td>{{orderItemIndex + 1}}</td>
+                                    <td><img style="height: 50px; width: 50px; object-fit: cover"
+                                             ng-src="{{ orderItem.product.images[0] }}">
+                                    <td>{{orderItem.product.name}}</td>
+                                    <td>{{orderItem.quantity}}</td>
+                                    <td>{{orderItem.price | currency : "$" : 0}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="font-weight-bold">Total Amount</td>
+                                    <td class="font-weight-bold">{{order.totalAmount | currency : "$" : 0}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="font-italic">Payment Method:
+                                <span ng-show="order.payment.method === 'CASH'">CASH</span>
+                                <span ng-show="order.payment.method === 'VNPAY'"
+                                      class="badge badge-primary">VNPAY</span>
+                                <span ng-show="order.payment.method === 'MOMO'"
+                                      class="badge badge-info">MOMO</span>
+                            </div>
+                            <div class="font-italic">Payment Status:
+                                <span ng-show="order.payment.status === 'PAID'"
+                                      class="badge badge-success">PAID</span>
+                                <span ng-show="order.payment.status === 'PAYING'"
+                                      class="badge badge-warning">PAYING</span>
+                                <span ng-show="order.payment.status === 'FAILED'"
+                                      class="badge badge-danger">FAILED</span>
+                            </div>
+                            <div class="font-italic">Note: {{order.note}}</div>
+                        </div>
+                        <div class="card-footer"
+                             ng-show="order.status === 'PENDING' && $parent.user.roles[0] !== 'ROLE_CUSTOMER'">
+                            <div class="d-flex justify-content-end align-items-center">
+                                <div style="gap: 10px" class="d-flex">
+                                    <button ng-click="updateStatus(order.id, {status: 'CANCELLED'})"
+                                            class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">Cancel</span>
+                                    </button>
+                                    <button ng-click="updateStatus(order.id, {status: 'APPROVED'})"
+                                            class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">Approve</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer"
+                             ng-show="order.status !== 'PENDING' && $parent.user.roles[0] !== 'ROLE_CUSTOMER'">
+                            <div style="gap: 10px" class="float-right">
+                                <button ng-click="updateStatus(order.id, {status: 'PENDING'})"
+                                        class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-undo"></i>
+                                        </span>
+                                    <span class="text">Undo</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,7 +395,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                             src="img/undraw_posting_photo.svg" alt="...">
+                             src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/posting_photo_v65l.svg"
+                             alt="...">
                     </div>
                     <p>Add some quality, svg illustrations to your project courtesy of <a
                             target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a

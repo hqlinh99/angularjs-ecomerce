@@ -1,4 +1,5 @@
-myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+myApp.config(function ($routeProvider, $httpProvider, $locationProvider) {
+    $httpProvider.interceptors.push('interceptor');
     $routeProvider
         .when("/", {
             templateUrl: "web/pages/home/home.html",
@@ -19,9 +20,10 @@ myApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $
     //     enabled: true,
     //     requireBase: true
     // });
-}]);
+});
 
-myApp.controller('myCtrl', ($scope) => {
+myApp.controller('myCtrl', ($scope, $cookies, authService) => {
+    $scope.user = authService.getSubjectFromJWT($cookies.get("refresh_token"));
     $scope.notify = {
         data: [],
         not: {
@@ -81,7 +83,7 @@ myApp.controller('myCtrl', ($scope) => {
 
                 $scope.notify.create({
                     type: "success",
-                    message: "Product " + product.title + product.id + " has already been added to cart"
+                    message: "Product " + product.name + product.id + " has already been added to cart"
                 });
             }
 
@@ -92,7 +94,7 @@ myApp.controller('myCtrl', ($scope) => {
         getTotal: function () {
             let total = 0;
             for (i = 0; i < this.data.length; i++) {
-                total += this.data[i].product.price * this.data[i].quantity * 10000;
+                total += this.data[i].product.price * this.data[i].quantity;
             }
             return total;
         },

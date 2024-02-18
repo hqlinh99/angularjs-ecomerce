@@ -1,6 +1,4 @@
-myApp.controller("userCtrl", ($scope, $cookies, authService) => {
-    $scope.user = authService.getSubjectFromJWT($cookies.get("refresh_token"));
-
+myApp.controller("userCtrl", ($scope, authService) => {
     $scope.logout = () => {
         authService.deleteCookie("refresh_token");
         window.location.pathname = "/";

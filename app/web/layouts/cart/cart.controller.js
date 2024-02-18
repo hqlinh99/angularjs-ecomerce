@@ -1,3 +1,3 @@
-myApp.controller("cartCtrl", ["$scope", ($scope) => {
+myApp.controller("cartCtrl", ($scope) => {
 
-}])
+});

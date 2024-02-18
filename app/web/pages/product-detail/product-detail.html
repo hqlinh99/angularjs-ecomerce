@@ -147,10 +147,9 @@
                 </div>
                 <div class="flex mb-4">
                     <div>
-            <span class="title-font font-medium text-2xl text-gray-900">{{product.price * 10000 | currency : ""
-              : 0}} ₫</span>
+                        <span class="title-font font-medium text-2xl text-gray-900">{{product.price | currency : "$": 0}}</span>
                         <br>
-                        <span class="title-font font-normal text-sm text-gray-700 dark:text-gray-400">trị giá({{product.price * 11000 | currency : "" : 0}} ₫)</span>
+                        <span class="title-font font-normal text-sm text-gray-700 dark:text-gray-400">trị giá({{product.price + 10 | currency : "$" : 0}})</span>
                     </div>
                     <div class="flex ml-auto">
                         <button ng-click="$parent.cart.add({product: product, quantity: quantity})"

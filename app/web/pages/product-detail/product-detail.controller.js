@@ -1,4 +1,6 @@
 window.productDetailCtrl = function($scope, $routeParams, $location, productFactory) {
+    $scope.$parent.pageTitle = "Product Detail";
+
     productFactory.getProduct($routeParams.productId).then(res => {
         $scope.product = res.data.result;
         $scope.imageSelectedIndex = 0;

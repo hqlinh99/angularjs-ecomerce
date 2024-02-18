@@ -14,7 +14,8 @@
                     <label for="uploadFile" class="btn btn-primary btn-block">Upload
                         Files
                     </label>
-                    <input onchange="angular.element(this).scope().uploadSingleFile(this)" id="uploadFile" accept="{{type === 'image' ? 'image/*' : ''}}"
+                    <input onchange="angular.element(this).scope().uploadSingleFile(this)" id="uploadFile"
+                           accept="{{type === 'image' ? 'image/*' : ''}}"
                            type="file" hidden="">
                     <div class="hr-line-dashed"></div>
                     <h5>Folders</h5>
@@ -55,10 +56,10 @@
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px">
                         <div ng-repeat="(index, item) in items"
                              ng-class="{'active': item.isSelected}"
-                             ng-click="selectItem(item)" style="cursor: pointer" class="card">
+                             ng-click="selectItem(item)" style="cursor: pointer" class="card fileItem">
                             <div style="padding: 0" class="card-body position-relative">
                                 <div style="top: 0; right: 0" class="position-absolute">
-                                    <button ng-click="delete(index)" ng-show="item.isTrash"
+                                    <button ng-click="delete(item.id)" ng-show="item.isTrash"
                                             type="button" class="btn btn-link">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>

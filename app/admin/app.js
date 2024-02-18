@@ -1,4 +1,4 @@
-adminApp.config(["$routeProvider", "$httpProvider", "$locationProvider", function ($routeProvider, $httpProvider, $locationProvider) {
+adminApp.config(function ($routeProvider, $httpProvider, $locationProvider) {
     $httpProvider.interceptors.push('interceptor');
     $routeProvider
         .when("/dashboard", {
@@ -44,7 +44,7 @@ adminApp.config(["$routeProvider", "$httpProvider", "$locationProvider", functio
     //     enabled: true,
     //     requireBase: true
     // });
-}]);
+});
 adminApp.controller('adminCtrl', ($scope, $cookies, authService) => {
     $scope.$parent.user = authService.getSubjectFromJWT($cookies.get("refresh_token"));
     $scope.logout = () => {

@@ -1,3 +1,3 @@
-window.homeCtrl = function ($scope, $timeout) {
-
+window.homeCtrl = function ($scope) {
+    $scope.$parent.pageTitle = "Home Page";
 }

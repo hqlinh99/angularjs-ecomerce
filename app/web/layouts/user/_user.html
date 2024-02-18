@@ -1,18 +1,24 @@
 <div ng-controller="userCtrl">
-    <button ng-show="user" ng-click="isOpenDropdown = !isOpenDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
+    <button ng-show="user" ng-click="isOpenDropdown = !isOpenDropdown"
+            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            type="button">
         <span class="sr-only">Open user menu</span>
-        <img class="w-8 h-8 rounded-full" ng-src="{{user.avatar}}" alt="avatar">
+        <img class="w-8 h-8 rounded-full" ng-src="{{$parent.user.avatar}}" alt="avatar">
     </button>
-    <a href="/auth" ng-show="!user" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+    <a href="/auth" ng-show="!user"
+       class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
         <span class="sr-only">Login page</span>
-        <img class="w-8 h-8 rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Microsoft_Account_Logo.svg/1200px-Microsoft_Account_Logo.svg.png" alt="user photo">
+        <img class="w-8 h-8 rounded-full"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Microsoft_Account_Logo.svg/1200px-Microsoft_Account_Logo.svg.png"
+             alt="user photo">
     </a>
 
     <!-- Dropdown menu -->
-    <div ng-show="isOpenDropdown" class="z-10 absolute right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+    <div ng-show="isOpenDropdown"
+         class="z-10 absolute right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
         <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{{user.roles[0] | lowercase}}</div>
-            <div class="font-medium truncate">{{user.email}}</div>
+            <div>{{$parent.user.roles[0] | lowercase}}</div>
+            <div class="font-medium truncate">{{$parent.user.email}}</div>
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
             <li>
@@ -26,7 +32,10 @@
             </li>
         </ul>
         <div class="py-2">
-            <button ng-click="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
+            <button ng-click="logout()"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                Sign out
+            </button>
         </div>
     </div>
 

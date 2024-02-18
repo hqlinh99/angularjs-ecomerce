@@ -45,8 +45,11 @@ adminApp.component('mediaManagement', {
         $scope.delete = (id) => {
             let check = confirm("Are you sure you want to delete?")
             if (check) {
-                $scope.items.splice(id, 1);
-                $scope.clearSelected();
+                fileUploadFactory.delete(id)
+                    .then(() => {
+                        $scope.items = $scope.items.filter(item => item.id !== id);
+                        $scope.clearSelected();
+                    })
             }
         }
     },

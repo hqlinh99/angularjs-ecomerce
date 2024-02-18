@@ -53,11 +53,11 @@
                         </td>
                         <td>{{ product.name }}</td>
                         <td>{{ product.productType }}</td>
-                        <td style="white-space: nowrap">{{ product.price | currency : "": 0}} ₫</td>
+                        <td style="white-space: nowrap">{{ product.price | currency : "$": 0}}</td>
                         <td>{{ product.quantity }}</td>
                         <td>{{ product.description }}</td>
-                        <td>{{ product.createdAt | date : format: timezone}}</td>
-                        <td>{{ product.updatedAt | date : format: timezone}}</td>
+                        <td>{{ product.createdAt | date:"dd/MM/yyyy 'at' h:mma"}}</td>
+                        <td>{{ product.updatedAt | date:"dd/MM/yyyy 'at' h:mma"}}</td>
                         <td>
                             <a href="/admin/#!/product-detail/{{product.id}}" class="btn btn-primary mb-2">Edit
                             </a>
