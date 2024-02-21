@@ -13,7 +13,39 @@
 </head>
 <body class="text-[#2E3E4E] dark:text-white">
 <div ng-include="'web/layouts/header/_header.html'"></div>
-<div class="mt-[105px]">
+<div class="position-relative mt-[105px]">
+    <div id="loader" style="z-index: 999; display: none">
+        <div class="loader">
+            <style>
+                .loader {
+                    position: fixed;
+                    bottom: 0;
+                    color: black;
+                    height: 4px;
+                    width: 100%;
+                    --c: no-repeat linear-gradient(#6100ee 0 0);
+                    background: var(--c), var(--c), #d7b8fc;
+                    background-size: 60% 100%;
+                    animation: l16 3s infinite;
+                    z-index: 99;
+                }
+
+                @keyframes l16 {
+                    0% {
+                        background-position: -150% 0, -150% 0
+                    }
+                    66% {
+                        background-position: 250% 0, -150% 0
+                    }
+                    100% {
+                        background-position: 250% 0, 250% 0
+                    }
+                }
+            </style>
+        </div>
+        <div style="z-index: 9; position: fixed; width: 100%; height: 100%; top: 0; right: 0; bottom: 0; left: 0; background: white;"></div>
+    </div>
+
     <div ng-view></div>
 </div>
 <div ng-include="'web/layouts/footer/_footer.html'"></div>
@@ -24,6 +56,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/angular-jwt@0.1.11/dist/angular-jwt.min.js"></script>
 <script src="module.js"></script>
 <script src="web/app.js"></script>
 <script src="web/pages/home/home.controller.js"></script>

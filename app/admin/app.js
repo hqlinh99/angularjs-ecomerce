@@ -45,14 +45,16 @@ adminApp.config(function ($routeProvider, $httpProvider, $locationProvider) {
     //     requireBase: true
     // });
 });
-adminApp.controller('adminCtrl', ($scope, $cookies, authService) => {
-    $scope.$parent.user = authService.getSubjectFromJWT($cookies.get("refresh_token"));
+adminApp.controller('adminCtrl', ($scope, $cookies, jwtHelper, authService) => {
+    let token = $cookies.get("refresh_token");
+    if (token)
+        $scope.$parent.user = jwtHelper.decodeToken(token);
+
     $scope.logout = () => {
-        authService.deleteCookie("refresh_token");
+        $cookies.remove("refresh_token");
         window.location.pathname = "/auth";
     }
 });
-
 adminApp.directive('isNumber', function () {
     return {
         require: 'ngModel',

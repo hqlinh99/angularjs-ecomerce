@@ -26,33 +26,6 @@ service.service('authService', function () {
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
 
-    this.getCookie = (cname) => {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    this.deleteCookie = (name) => {
-        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-    }
-
-    this.getSubjectFromJWT = (jwt) => {
-        if (jwt) {
-            var tokens = jwt.split(".");
-            return JSON.parse(atob(tokens[1]));
-        }
-        return null;
-    }
     this.checkRedirect = (roles) => {
         if (roles.includes("ROLE_CUSTOMER"))
             window.location.pathname = "/"
@@ -60,13 +33,13 @@ service.service('authService', function () {
     }
 });
 
-service.factory("interceptor", function ($q, $location, authService, $injector) {
+service.factory("interceptor", function ($q, $location, $cookies,authService, $injector) {
     return {
         responseError: function (response) {
             let $http = $injector.get("$http");
 
             if (response.status === 401) {
-                let refreshToken = authService.getCookie("refresh_token");
+                let refreshToken = $cookies.get("refresh_token");
                 if (refreshToken === "") window.location.pathname = "/auth";
 
                 return $http.post("http://localhost:8080/api/v1/refresh-token", {refreshToken: refreshToken})

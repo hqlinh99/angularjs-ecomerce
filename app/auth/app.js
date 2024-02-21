@@ -20,9 +20,12 @@ authApp.config(["$routeProvider", "$locationProvider", function ($routeProvider,
     //     requireBase: true
     // });
 }]);
-authApp.controller('authCtrl', ($scope, $cookies, authService) => {
-    var auth = authService.getSubjectFromJWT($cookies.get("refresh_token"));
-    if (auth) authService.checkRedirect(auth.roles);
+authApp.controller('authCtrl', ($scope, $cookies, jwtHelper, authService) => {
+    let token = $cookies.get("refresh_token");
+    if (token) {
+        var auth = jwtHelper.decodeToken($cookies.get("refresh_token"));
+        if (auth) authService.checkRedirect(auth.roles);
+    }
 });
 
 

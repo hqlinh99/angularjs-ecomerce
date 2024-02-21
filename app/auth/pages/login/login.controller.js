@@ -1,11 +1,12 @@
-window.loginCtrl = function ($scope, $timeout, $cookies, authFactory, authService, $window) {
+window.loginCtrl = function ($scope, $timeout, $cookies, authFactory, authService, jwtHelper) {
+
     $scope.login = (user) => {
         if ($scope.myForm.$valid) {
             authFactory.login(user)
                 .then((res) => {
                     let {refreshToken} = res.data.result;
                     authService.setCookie("refresh_token", refreshToken, 86400000);
-                    let roles = authService.getSubjectFromJWT(refreshToken).roles;
+                    let roles = jwtHelper.decodeToken(refreshToken).roles;
                     authService.checkRedirect(roles);
                 })
                 .catch(function (err) {
@@ -30,7 +31,7 @@ window.loginCtrl = function ($scope, $timeout, $cookies, authFactory, authServic
             if (!googleLoginWindow.frames) {
                 let refreshToken = $cookies.get("refresh_token");
                 if (refreshToken) {
-                    let roles = authService.getSubjectFromJWT(refreshToken).roles;
+                    let roles = jwtHelper.decodeToken(refreshToken).roles;
                     authService.checkRedirect(roles);
                 }
                 clearInterval(interval);

@@ -1,6 +1,6 @@
-myApp.controller("userCtrl", ($scope, authService) => {
+myApp.controller("userCtrl", ($scope, $cookies, authService) => {
     $scope.logout = () => {
-        authService.deleteCookie("refresh_token");
+        $cookies.remove("refresh_token");
         window.location.pathname = "/";
         window.location.reload();
     }

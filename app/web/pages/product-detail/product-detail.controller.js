@@ -1,10 +1,13 @@
-window.productDetailCtrl = function($scope, $routeParams, $location, productFactory) {
+window.productDetailCtrl = function ($scope, $routeParams, $location, productFactory) {
     $scope.$parent.pageTitle = "Product Detail";
 
-    productFactory.getProduct($routeParams.productId).then(res => {
-        $scope.product = res.data.result;
-        $scope.imageSelectedIndex = 0;
-    });
+    $scope.loader.style.display = "block";
+    productFactory.getProduct($routeParams.productId)
+        .then(res => {
+            $scope.loader.style.display = "none";
+            $scope.product = res.data.result;
+            $scope.imageSelectedIndex = 0;
+        });
 
     $scope.quantity = 1;
 

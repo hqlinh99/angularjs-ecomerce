@@ -15,11 +15,13 @@ window.checkoutCtrl = function ($scope, $location, $http, orderFactory) {
     $scope.paymentMethod = "CASH";
 
     $scope.checkout = (order) => {
+    $scope.loader.style.display = "block";
         if ($scope.myForm.$valid) {
             order.payment = {method: $scope.paymentMethod}
 
             orderFactory.create(order)
                 .then((res) => {
+                    $scope.loader.style.display = "none";
                     let orderResut = res.data.result;
                     if (orderResut.payment.urlVNPAY)
                         window.location.href = orderResut.payment.urlVNPAY;

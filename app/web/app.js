@@ -22,8 +22,11 @@ myApp.config(function ($routeProvider, $httpProvider, $locationProvider) {
     // });
 });
 
-myApp.controller('myCtrl', ($scope, $cookies, authService) => {
-    $scope.user = authService.getSubjectFromJWT($cookies.get("refresh_token"));
+myApp.controller('myCtrl', ($scope, $cookies, jwtHelper, authService) => {
+    let token = $cookies.get("refresh_token");
+    if (token)
+        $scope.user = jwtHelper.decodeToken(token);
+    $scope.loader = document.querySelector("#loader");
     $scope.notify = {
         data: [],
         not: {
