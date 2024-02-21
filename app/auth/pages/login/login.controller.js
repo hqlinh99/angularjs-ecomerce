@@ -1,18 +1,24 @@
-window.loginCtrl = function ($scope, $timeout, $cookies,authFactory, authService, $window) {
+window.loginCtrl = function ($scope, $timeout, $cookies, authFactory, authService, $window) {
     $scope.login = (user) => {
-        authFactory.login(user)
-            .then((res) => {
-                //Chua fix loi!!
-                let {refreshToken} = res.data.result;
-                authService.setCookie("refresh_token", refreshToken, 86400000);
-                let roles = authService.getSubjectFromJWT(refreshToken).roles;
-                authService.checkRedirect(roles);
-            })
-            .catch(function (err) {
-                if (err.status != -1)
-                    err.data.errors.forEach(e => alert(e.errorMessage))
-                else alert("Cannot connect to server!");
-            })
+        if ($scope.myForm.$valid) {
+            authFactory.login(user)
+                .then((res) => {
+                    let {refreshToken} = res.data.result;
+                    authService.setCookie("refresh_token", refreshToken, 86400000);
+                    let roles = authService.getSubjectFromJWT(refreshToken).roles;
+                    authService.checkRedirect(roles);
+                })
+                .catch(function (err) {
+                    if (err.status != -1)
+                        err.data.errors.forEach(e => alert(e.errorMessage))
+                    else alert("Cannot connect to server!");
+                })
+        }
+        else
+        {
+            $scope.myForm.username.$touched = true;
+            $scope.myForm.password.$touched = true;
+        }
     }
 
     $scope.socialLogin = function (provider) {
@@ -22,8 +28,11 @@ window.loginCtrl = function ($scope, $timeout, $cookies,authFactory, authService
 
         var interval = setInterval(function () {
             if (!googleLoginWindow.frames) {
-                let roles = authService.getSubjectFromJWT($cookies.get("refresh_token")).roles;
-                authService.checkRedirect(roles);
+                let refreshToken = $cookies.get("refresh_token");
+                if (refreshToken) {
+                    let roles = authService.getSubjectFromJWT(refreshToken).roles;
+                    authService.checkRedirect(roles);
+                }
                 clearInterval(interval);
             }
         }, 500)

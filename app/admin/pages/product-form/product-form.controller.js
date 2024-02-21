@@ -1,14 +1,14 @@
 window.productFormCtrl = function ($scope, $routeParams, productFactory, $location) {
     if ($scope.$parent.user.roles[0] === "ROLE_CUSTOMER") $location.path("/");
-    $scope.product =
-        {
-            name: "",
-            description: "",
-            price: 0,
-            quantity: 0,
-            productType: "",
-            images: [],
-        }
+
+    $scope.product = {
+        name: "",
+        description: "",
+        price: "",
+        quantity: "",
+        productType: "",
+        images: []
+    }
 
     if (productId = $routeParams.productId) {
         $scope.$parent.pageTitle = "Update Product";
@@ -25,8 +25,8 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
 
     $scope.addImageUrl = (url) => {
         if ($scope.validateUrl(url)) {
-            $scope.product.images.push(new String(url));
-            $scope.url = ""
+            $scope.product.images.push(url);
+            $scope.clearImageSelected();
             $('#exampleModal').modal('hide');
         }
     }
@@ -39,10 +39,10 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
     }
 
     $scope.saveProduct = (productId) => {
-        if ($scope.validateForm()) {
+        if ($scope.myForm.$valid) {
             if (productId) {
-                let check = confirm('Are you sure you want to update this product?');
-                if (check) {
+                $scope.checked  = confirm('Are you sure you want to update this product?');
+                if ($scope.checked) {
                     $scope.product.updatedAt = Date.now();
                     productFactory.update(productId, $scope.product)
                         .then(res => {
@@ -50,10 +50,24 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
                             $location.path('/products');
                         })
                         .catch(res => {
-                            res.data.errors.forEach(err => alert(err.errorMessage))
+                            res.data.errors.forEach(err => {
+                                if (err.field.includes('name')) {
+                                    $scope.validate.name.status = true;
+                                    $scope.validate.name.message = err.errorMessage;
+                                    return;
+                                }
+
+                                if (err.field.includes('price')) {
+                                    $scope.validate.price.status = true;
+                                    $scope.validate.price.message = err.errorMessage;
+                                    return;
+                                }
+                            });
+                            $scope.checked = false;
                         });
                 }
             } else {
+                $scope.checked = true;
                 $scope.product.createdAt = Date.now();
                 productFactory.create($scope.product)
                     .then(res => {
@@ -78,61 +92,26 @@ window.productFormCtrl = function ($scope, $routeParams, productFactory, $locati
                                 $scope.validate.productType.status = true;
                                 $scope.validate.productType.message = err.errorMessage;
                             } else $scope.validate.productType.status = false;
-                        })
+                        });
+                        $scope.checked = false;
                     });
             }
         }
-    }
-
-    $scope.validate =
+        else
         {
-            name: {
-                status: false,
-                message: ""
-            }, price: {
-                status: false,
-                message: ""
-            }, quantity: {
-                status: false,
-                message: ""
-            }, productType: {
-                status: false,
-                message: ""
-            }
+            $scope.myForm.name.$touched = true;
+            $scope.myForm.price.$touched = true;
+            $scope.myForm.quantity.$touched = true;
+            $scope.myForm.productType.$touched = true;
         }
+    }
 
     $scope.validateUrl = (url) => {
-        if (url && url.indexOf('http') !== 0) {
-            alert("url is not a valid");
-            return false;
-        }
-
         if ($scope.product.images.includes(url)) {
-            alert("url image already exists");
+            alert("image already exists");
             return false;
         }
-
         return true;
     }
-
-    $scope.validateForm = () => {
-        let check = true;
-        if ($scope.product.title === "") {
-            $scope.validate.name.status = true;
-            $scope.validate.name.message = "product title is not empty!";
-            check = false;
-        } else {
-            $scope.validate.name.status = false;
-        }
-
-        if ($scope.product.productType === "") {
-            $scope.validate.productType.status = true;
-            $scope.validate.productType.message = "select productType, please!";
-            check = false;
-        } else {
-            $scope.validate.productType.status = false;
-        }
-
-        return check;
-    }
 }
+

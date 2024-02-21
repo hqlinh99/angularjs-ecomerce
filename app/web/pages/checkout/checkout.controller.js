@@ -12,21 +12,28 @@ window.checkoutCtrl = function ($scope, $location, $http, orderFactory) {
         }, 1)
     }
 
+    $scope.paymentMethod = "CASH";
+
     $scope.checkout = (order) => {
-        if ($scope.user.email && $scope.user.fullName) {
+        if ($scope.myForm.$valid) {
+            order.payment = {method: $scope.paymentMethod}
 
             orderFactory.create(order)
                 .then((res) => {
-                    if (res.data.result.urlVNPAY)
-                        window.location.href = res.data.result.urlVNPAY;
+                    let orderResut = res.data.result;
+                    if (orderResut.payment.urlVNPAY)
+                        window.location.href = orderResut.payment.urlVNPAY;
                     else {
                         alert('Place Order successfully');
                         $scope.$parent.cart.data = [];
                         $location.path('/');
                     }
-                })
+                });
+
         } else {
-            alert('Please fill all the required fields.');
+            $scope.myForm.email.$touched = true;
+            $scope.myForm.fullName.$touched = true;
+
         }
     };
 

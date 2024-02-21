@@ -4,14 +4,13 @@ window.signUpCtrl = function ($scope, $timeout, $location, authFactory) {
         lastName: "",
         email: "",
         password: "",
-        repeatPassword: "",
+        confirmPassword: "",
         role: "CUSTOMER"
     }
 
 
     $scope.signUp = (user) => {
-        checkRepeatPassword(user)
-        {
+        if ($scope.myForm.$valid) {
             user.createdAt = Date.now();
             authFactory.signUp(user)
                 .then((res) => {
@@ -24,13 +23,18 @@ window.signUpCtrl = function ($scope, $timeout, $location, authFactory) {
                     else alert("Cannot connect to server!");
                 })
         }
+        else
+        {
+            $scope.myForm.firstName.$touched = true;
+            $scope.myForm.lastName.$touched = true;
+            $scope.myForm.email.$touched = true;
+            $scope.myForm.password.$touched = true;
+            $scope.myForm.confirmPassword.$touched = true;
+        }
     }
 
-    function checkRepeatPassword(user) {
-        if (user.password != user.repeatPassword) {
-            alert("Passwords do not match");
-            return false;
-        }
-        return true;
+    $scope.matchPassword = () => {
+        console.log("??")
+        $scope.myForm.confirmPassword.$setValidity('matchPassword', $scope.user.password === $scope.user.confirmPassword);
     }
 }

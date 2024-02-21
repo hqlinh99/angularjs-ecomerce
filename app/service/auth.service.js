@@ -79,9 +79,10 @@ service.factory("interceptor", function ($q, $location, authService, $injector) 
                         return $http(response.config);
                     })
                     .catch((res) => {
+                        if (res.status === 400 || res.status === 409) throw res;
                         res.data.errors.forEach(err => alert(err.errorMessage));
                         window.location.pathname = "/auth";
-                    })
+                    });
             }
             return $q.reject(response);
         }

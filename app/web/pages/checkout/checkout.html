@@ -69,7 +69,7 @@
     <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
         <p class="text-xl font-medium">Payment Details</p>
         <p class="text-gray-400">Complete your order by providing your payment details.</p>
-        <form ng-submit="checkout({account: {id: user.sub}, orderItems: $parent.cart.data, note: note, payment: {method: paymentMethod}})">
+        <form name="myForm">
             <div class="">
                 <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
                 <div class="relative">
@@ -84,9 +84,19 @@
                         </svg>
                     </div>
                 </div>
+                <div
+                        ng-show="myForm.email.$error.required && myForm.email.$touched"
+                        style="color: red">
+                    <i class="fa fa-exclamation-circle"></i> Email is not empty!
+                </div>
+                <div
+                        ng-show="myForm.email.$error.email"
+                        style="color: red">
+                    <i class="fa fa-exclamation-circle"></i> Email is not valid!
+                </div>
                 <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Card Holder</label>
                 <div class="relative">
-                    <input type="text" id="card-holder" name="card-holder" ng-model="user.fullName"
+                    <input type="text" id="card-holder" name="fullName" ng-model="user.fullName"
                            class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                            placeholder="Your full name here" required/>
                     <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
@@ -97,18 +107,23 @@
                         </svg>
                     </div>
                 </div>
+                <div
+                        ng-show="myForm.fullName.$error.required && myForm.fullName.$touched"
+                        style="color: red">
+                    <i class="fa fa-exclamation-circle"></i> fullName is not empty!
+                </div>
                 <label for="card-no" class="mt-4 mb-2 block text-sm font-medium">Note</label>
                 <div class="relative">
                         <textarea id="message" rows="4" ng-model="note"
-                                  class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                  class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                   placeholder="Write your notes here..."></textarea>
                 </div>
                 <label for="card-no" class="mt-4 mb-2 block text-sm font-medium">Method Payment</label>
                 <div class="relative">
                     <ul class="grid w-full gap-6 md:grid-cols-2">
                         <li>
-                            <input ng-model="paymentMethod" type="radio" id="hosting-small" name="hosting" value="CASH"
-                                   class="hidden peer" checked required/>
+                            <input ng-model="paymentMethod" type="radio" id="hosting-small" name="payment" value="CASH"
+                                   class="hidden peer" ng-required="true"/>
                             <label for="hosting-small"
                                    class="inline-flex items-center justify-between w-full p-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <div class="flex gap-2 items-center">
@@ -127,7 +142,7 @@
                             </label>
                         </li>
                         <li>
-                            <input ng-model="paymentMethod" type="radio" id="hosting-big" name="hosting" value="VNPAY" class="hidden peer">
+                            <input ng-model="paymentMethod" type="radio" id="hosting-big" name="payment" value="VNPAY" class="hidden peer">
                             <label for="hosting-big"
                                    class="inline-flex items-center justify-between w-full p-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <div class="flex gap-2 items-center">
@@ -146,14 +161,13 @@
                             </label>
                         </li>
                     </ul>
-
                 </div>
 
                 <!-- Total -->
                 <div class="mt-6 border-t border-b py-2">
                     <div class="flex items-center justify-between">
                         <p class="text-sm font-medium text-gray-900">Subtotal</p>
-                        <p class="font-semibold text-gray-900">{{$parent.cart.getTotal() | currency : "" : 0}} đ</p>
+                        <p class="font-semibold text-gray-900">{{$parent.cart.getTotal() | currency : "$" : 0}}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-sm font-medium text-gray-900">Shipping</p>
@@ -162,11 +176,12 @@
                 </div>
                 <div class="mt-6 flex items-center justify-between">
                     <p class="text-sm font-medium text-gray-900">Total</p>
-                    <p class="text-2xl font-semibold text-gray-900">{{$parent.cart.getTotal() | currency : "" : 0}}
-                        đ</p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        {{$parent.cart.getTotal() | currency : "$" : 0}} ~ {{$parent.cart.getTotal()*24000 | currency : "" : 0}}đ
+                    </p>
                 </div>
             </div>
-            <button type="submit"
+            <button ng-click="checkout({account: {id: user.sub}, orderItems: $parent.cart.data, note: note})" type="submit"
                     class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place
                 Order
             </button>

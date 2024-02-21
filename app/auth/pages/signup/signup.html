@@ -10,46 +10,107 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <form class="user">
+                        <form name="myForm" class="user" novalidate>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input ng-model="user.firstName" type="text" class="form-control form-control-user"
-                                           id="exampleFirstName"
-                                           placeholder="First Name">
+                                    <input
+                                            id="firstName"
+                                            class="form-control form-control-user"
+                                            ng-model="user.firstName"
+                                            type="text"
+                                            placeholder="First Name"
+                                            name="firstName"
+                                            required
+                                    >
+                                    <div
+                                            ng-show="myForm.firstName.$error.required && myForm.firstName.$touched"
+                                            style="color: red">
+                                        <i class="fa fa-exclamation-circle"></i> First Name is not NULL or
+                                        EMPTY!
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input ng-model="user.lastName" type="text" class="form-control form-control-user"
-                                           id="exampleLastName"
-                                           placeholder="Last Name">
+                                    <input
+                                            id="lastName"
+                                            class="form-control form-control-user"
+                                            ng-model="user.lastName"
+                                            type="text"
+                                            placeholder="Last Name"
+                                            name="lastName"
+                                            required
+                                    >
+                                    <div
+                                            ng-show="myForm.lastName.$error.required && myForm.lastName.$touched"
+                                            style="color: red">
+                                        <i class="fa fa-exclamation-circle"></i> Last Name is not NULL or
+                                        EMPTY!
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input ng-model="user.email" type="email" class="form-control form-control-user"
-                                       id="exampleInputEmail"
-                                       placeholder="Email Address">
+                                <input
+                                        id="email"
+                                        class="form-control form-control-user"
+                                        ng-model="user.email"
+                                        type="text"
+                                        placeholder="Email Adress"
+                                        name="email"
+                                        required
+                                >
+                                <div
+                                        ng-show="myForm.email.$error.required && myForm.email.$touched"
+                                        style="color: red">
+                                    <i class="fa fa-exclamation-circle"></i> Email Address is not NULL or
+                                    EMPTY!
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input ng-model="user.password" type="password" class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="Password">
+                                    <input
+                                            id="password"
+                                            class="form-control form-control-user"
+                                            ng-model="user.password"
+                                            type="password"
+                                            placeholder="Password"
+                                            name="password"
+                                            required
+                                            ng-change="checkConfirmPassword()"
+                                    >
+                                    <div
+                                            ng-show="myForm.password.$error.required && myForm.password.$touched"
+                                            style="color: red">
+                                        <i class="fa fa-exclamation-circle"></i> Password is not NULL or
+                                        EMPTY!
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input ng-model="user.repeatPassword" type="password"
-                                           class="form-control form-control-user"
-                                           id="exampleRepeatPassword" placeholder="Repeat Password">
+                                    <input
+                                            id="confirmPassword"
+                                            class="form-control form-control-user"
+                                            ng-model="user.confirmPassword"
+                                            type="password"
+                                            placeholder="Confirm Password"
+                                            name="confirmPassword"
+                                            required
+                                            ng-change="matchPassword()"
+                                    >
+                                    <div
+                                            ng-show="myForm.confirmPassword.$error.required && myForm.confirmPassword.$touched"
+                                            style="color: red">
+                                        <i class="fa fa-exclamation-circle"></i> Confirm Password is not NULL or
+                                        EMPTY!
+                                    </div>
+                                    <div
+                                            ng-show="myForm.confirmPassword.$error.matchPassword"
+                                            style="color: red">
+                                        <i class="fa fa-exclamation-circle"></i> Confirm Password is not matching!
+                                    </div>
                                 </div>
                             </div>
                             <button ng-click="signUp(user)"
                                     href="login.html" class="btn btn-primary btn-user btn-block">
                                 Register Account
                             </button>
-                            <hr>
-                            <a href="index.html" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Register with Google
-                            </a>
-                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                            </a>
                         </form>
                         <hr>
                         <div class="text-center">

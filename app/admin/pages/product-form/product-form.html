@@ -12,14 +12,22 @@
         </div>
         <div class="card-body">
             <div class="table-responsive" style="padding: 10px">
-                <form>
+                <form name="myForm" novalidate>
                     <div class="form-group">
-                        <label for="name">Product Name</label>
-                        <input ng-model="product.name" ng-change="validateForm()" type="text" class="form-control"
-                               id="name"
-                               placeholder="Sweater">
-                        <div ng-show="validate.name.status" style="color: red">
-                            <i class="fa fa-exclamation-circle"></i> {{validate.name.message}}
+                        <label for="name">Product Name<span style="color: red">*</span></label>
+                        <input
+                                id="name"
+                                class="form-control"
+                                type="text"
+                                name="name"
+                                ng-model="product.name"
+                                required
+                                placeholder="Sweater"
+                        >
+                        <div ng-messages="myForm.name.$error" ng-show="myForm.name.$touched" style="color: red">
+                            <div ng-message="required">
+                                <i class="fa fa-exclamation-circle"></i> Product name is not EMPTY or NULL!
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -30,34 +38,79 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="price">Price</label>
-                            <input ng-model="product.price" type="text" class="form-control" id="price">
-                            <div ng-show="validate.price.status" style="color: red">
-                                <i class="fa fa-exclamation-circle"></i> {{validate.price.message}}
+                            <label for="price">Price<span style="color: red">*</span></label>
+                            <input
+                                    id="price"
+                                    class="form-control"
+                                    type="number"
+                                    name="price"
+                                    ng-model="product.price"
+                                    required
+                                    min="1"
+                                    max="50000"
+                            >
+                            <div ng-messages="myForm.price.$error" ng-show="myForm.price.$touched" style="color: red">
+                                <div ng-message="required">
+                                    <i class="fa fa-exclamation-circle"></i> Product price is not EMPTY or NULL!
+                                </div>
+                                <div ng-message="min">
+                                    <i class="fa fa-exclamation-circle"></i> Product price must be equal and greater
+                                    than 1!
+                                </div>
+                                <div ng-message="max">
+                                    <i class="fa fa-exclamation-circle"></i> Product price must be equal and less than
+                                    50000!
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="quantity">Quantity</label>
-                            <input ng-model="product.quantity" type="text" class="form-control" id="quantity">
-                            <div ng-show="validate.quantity.status" style="color: red">
-                                <i class="fa fa-exclamation-circle"></i> {{validate.quantity.message}}
+                            <label for="quantity">Quantity<span style="color: red">*</span></label>
+                            <input
+                                    id="quantity"
+                                    class="form-control"
+                                    type="number"
+                                    name="quantity"
+                                    ng-model="product.quantity"
+                                    required
+                                    min="1"
+                                    max="1000"
+                            >
+                            <div ng-messages="myForm.quantity.$error" ng-show="myForm.quantity.$touched" style="color: red">
+                                <div ng-message="required">
+                                    <i class="fa fa-exclamation-circle"></i> Product quantity is not EMPTY or NULL!
+                                </div>
+                                <div ng-message="min">
+                                    <i class="fa fa-exclamation-circle"></i> Product quantity must be equal and greater
+                                    than 1!
+                                </div>
+                                <div ng-message="max">
+                                    <i class="fa fa-exclamation-circle"></i> Product quantity must be equal and less
+                                    than 1000!
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="productType">Category</label>
-                            <select ng-model="product.productType" ng-change="validateForm()" id="productType"
-                                    class="form-control">
-                                <option hidden>Choose...</option>
-                                <option>Quần</option>
-                                <option>Áo</option>
-                                <option>Váy</option>
-                                <option>Dép</option>
-                                <option>Giày</option>
-                                <option>Túi sách</option>
-                                <option>Phụ kiện</option>
+                            <label for="productType">Product Type<span style="color: red">*</span></label>
+                            <select
+                                    id="productType"
+                                    class="form-control"
+                                    name="productType"
+                                    ng-model="product.productType"
+                                    required
+                            >
+                                <option value="" hidden>Choose...</option>
+                                <option value="Quần">Quần</option>
+                                <option value="Áo">Áo</option>
+                                <option value="Váy">Váy</option>
+                                <option value="Dép">Dép</option>
+                                <option value="Giày">Giày</option>
+                                <option value="Túi sách">Túi sách</option>
+                                <option value="Phụ kiện">Phụ kiện</option>
                             </select>
-                            <div ng-show="validate.productType.status" style="color: red">
-                                <i class="fa fa-exclamation-circle"></i> {{validate.productType.message}}
+                            <div ng-messages="myForm.productType.$error" ng-show="myForm.productType.$touched" style="color: red">
+                                <div ng-message="required">
+                                    <i class="fa fa-exclamation-circle"></i> Product type is not EMPTY or NULL!
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -13,4 +13,5 @@ window.dashboardCtrl = function ($scope, orderFactory, $location) {
             });
 
     }
+
 }

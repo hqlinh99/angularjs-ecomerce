@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive" style="padding: 10px">
-                <form>
+                <form name="myForm" novalidate>
                     <div class="form-group">
                         <label for="avatar">Avatar</label>
                         <div class="row g-3">
@@ -28,7 +28,7 @@
                                      ng-src="{{user.avatar}}">
                             </div>
 
-<!--                            media modal-->
+                            <!--                            media modal-->
                             <div style="width: 100px; height: 100px"
                                  class="col d-flex align-items-center justify-content-center">
                                 <button type="button" data-toggle="modal" data-target="#exampleModal"
@@ -54,7 +54,8 @@
 
                                                 <div><i class="fa fa-info-circle"></i> {{info}}</div>
                                                 <div>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
                                                         Cancel
                                                     </button>
                                                     <button ng-click="addImageUrl(url)" type="button"
@@ -72,45 +73,104 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="firstName">First Name<span style="color: red">*</span></label>
-                            <input ng-model="user.firstName" ng-change="validateForm()" type="text" class="form-control"
-                                   id="firstName">
-                            <div ng-show="validate.firstName.status" style="color: red">{{validate.firstName.message}}
+                            <input
+                                    id="firstName"
+                                    class="form-control"
+                                    type="text"
+                                    name="firstName"
+                                    ng-model="user.firstName"
+                                    required
+                            >
+                            <div
+                                    ng-show="myForm.firstName.$error.required && myForm.firstName.$touched"
+                                    style="color: red">
+                                First name is not NULL or EMPTY!
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastName">Last Name<span style="color: red">*</span></label>
-                            <input ng-model="user.lastName" ng-change="validateForm()" type="text" class="form-control"
-                                   id="lastName">
-                            <div ng-show="validate.lastName.status" style="color: red">{{validate.lastName.message}}
+                            <input
+                                    id="lastName"
+                                    class="form-control"
+                                    type="text"
+                                    name="lastName"
+                                    ng-model="user.lastName"
+                                    required
+                            >
+                            <div
+                                    ng-show="myForm.lastName.$error.required && myForm.lastName.$touched"
+                                    style="color: red">
+                                First name is not NULL or EMPTY!
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="username">Username<span style="color: red">*</span></label>
-                            <input ng-model="user.username" ng-change="validateForm()" type="text" class="form-control"
-                                   id="username">
-                            <div ng-show="validate.username.status" style="color: red">{{validate.username.message}}
+                            <input
+                                    id="username"
+                                    class="form-control"
+                                    type="text"
+                                    name="username"
+                                    ng-model="user.username"
+                                    required
+                                    minlength="5"
+                            >
+                            <div
+                                    ng-show="myForm.username.$error.required && myForm.username.$touched"
+                                    style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> First name is not NULL or EMPTY!
+                            </div>
+                            <div
+                                    ng-show="myForm.username.$error.minlength"
+                                    style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> Username length must be equal or greater than
+                                5!
                             </div>
 
                         </div>
                         <div class="form-group col-md-4">
                             <label for="email">Email<span style="color: red">*</span></label>
-                            <input ng-model="user.email" ng-change="validateForm()" type="text" class="form-control"
-                                   id="email">
-                            <div ng-show="validate.email.status" style="color: red">{{validate.email.message}}</div>
+                            <input
+                                    id="email"
+                                    class="form-control"
+                                    type="email"
+                                    name="email"
+                                    ng-model="user.email"
+                                    required
+                            >
+                            <div
+                                    ng-show="myForm.email.$error.required && myForm.username.$touched"
+                                    style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> email is not NULL or EMPTY!
+                            </div>
+                            <div
+                                    ng-show="myForm.email.$error.email"
+                                    style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> email is not valid!
+                            </div>
 
                         </div>
                         <div class="form-group col-md-4">
                             <label for="role">Role<span style="color: red">*</span></label>
-                            <select ng-model="user.role" ng-change="validateForm()" id="role" class="form-control">
+                            <select
+                                    id="role"
+                                    class="form-control"
+                                    ng-model="user.role"
+                                    name="role"
+                                    required
+                            >
                                 <option hidden value="">Choose...</option>
                                 <option value="ADMIN">ADMIN</option>
                                 <option value="MANAGER">MANAGER</option>
                                 <option value="SUB_MANAGER">SUB_MANAGER</option>
                                 <option value="CUSTOMER">CUSTOMER</option>
                             </select>
-                            <div ng-show="validate.role.status" style="color: red">{{validate.role.message}}</div>
+                            <div
+                                    ng-show="myForm.role.$error.required && myForm.role.$touched"
+                                    style="color: red">
+                                <i class="fa fa-exclamation-circle"></i> select a role, please!
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -120,7 +180,7 @@
                                   placeholder="A biography is a life history written for a general audience. Some things to include in a biography are:"></textarea>
                     </div>
 
-                    <button ng-click="saveUser(user.id)" type="submit" class="btn btn-primary">Save</button>
+                    <button ng-click="saveUser(user.id)" ng-disabled="checked" type="submit" class="btn btn-primary ">Save</button>
                     <a href="/admin/#!/users" class="btn btn-danger">Cancel</a>
                 </form>
             </div>

@@ -37,9 +37,10 @@ adminApp.component('mediaManagement', {
             $scope.$parent.info = item.name + " is selected";
         };
 
-        $scope.clearSelected = function () {
+        $scope.$parent.clearImageSelected = function () {
             $scope.$parent.url = null;
             $scope.$parent.info = "";
+            $scope.items.forEach(item => item.isSelected = false);
         };
 
         $scope.delete = (id) => {
@@ -48,7 +49,7 @@ adminApp.component('mediaManagement', {
                 fileUploadFactory.delete(id)
                     .then(() => {
                         $scope.items = $scope.items.filter(item => item.id !== id);
-                        $scope.clearSelected();
+                        $scope.$parent.clearImageSelected();
                     })
             }
         }

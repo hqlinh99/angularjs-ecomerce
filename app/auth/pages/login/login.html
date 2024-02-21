@@ -15,16 +15,46 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user">
+                                <form name="myForm" class="user" novalidate>
                                     <div class="form-group">
-                                        <input ng-model="username" type="text" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Username or Email Address...">
+                                        <input
+                                                id="username"
+                                                class="form-control form-control-user"
+                                                type="text"
+                                                name="username"
+                                                ng-model="username"
+                                                placeholder="Username*"
+                                                required
+                                        >
+                                        <div
+                                                ng-show="myForm.username.$error.required && myForm.username.$touched"
+                                                style="color: red">
+                                            <i class="fa fa-exclamation-circle"></i> username or email is not NULL or
+                                            EMPTY!
+                                        </div>
+                                        <div
+                                                ng-show="myForm.username.$error.minlength"
+                                                style="color: red">
+                                            <i class="fa fa-exclamation-circle"></i> username or email length must be
+                                            equal or greater than
+                                            5!
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <input ng-model="password" type="password"
-                                               class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
+                                        <input
+                                                id="password"
+                                                class="form-control form-control-user"
+                                                name="password"
+                                                ng-model="password" type="password"
+                                                placeholder="Password*"
+                                                required
+                                        >
+                                        <div
+                                                ng-show="myForm.password.$error.required && myForm.password.$touched"
+                                                style="color: red">
+                                            <i class="fa fa-exclamation-circle"></i> password or email is not NULL or
+                                            EMPTY!
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">

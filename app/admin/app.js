@@ -51,5 +51,59 @@ adminApp.controller('adminCtrl', ($scope, $cookies, authService) => {
         authService.deleteCookie("refresh_token");
         window.location.pathname = "/auth";
     }
+});
 
+adminApp.directive('isNumber', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModelCtrl) {
+            ngModelCtrl.$validators.isNumber = function (modelValue, viewValue) {
+                if (ngModelCtrl.$isEmpty(modelValue)) {
+                    // Giá trị rỗng được coi là hợp lệ
+                    return true;
+                }
+
+                if (isNaN(parseFloat(viewValue)) || !isFinite(viewValue)) {
+                    // Kiểm tra xem giá trị có phải là số hay không
+                    return false;
+                }
+
+                return true;
+            };
+        }
+    };
+});
+
+adminApp.directive('minValue', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModelCtrl) {
+            ngModelCtrl.$parsers.push(function (value) {
+                if (isNaN(parseFloat(attrs.minValue)) || !isFinite(attrs.minValue)) {
+                    var minValue = parseInt(attrs.minValue);
+                    var check = value >= minValue;
+                    ngModelCtrl.$setValidity('minValue', check);
+                    return check ? value : undefined;
+                } else {
+                    return true;
+                }
+
+            });
+        }
+    };
+});
+
+adminApp.directive('maxValue', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModelCtrl) {
+            ngModelCtrl.$parsers.push(function (value) {
+                var maxValue = parseInt(attrs.maxValue);
+                var check = value <= maxValue;
+                ngModelCtrl.$setValidity('maxValue', check);
+                return check ? value : undefined;
+                ;
+            });
+        }
+    };
 });
